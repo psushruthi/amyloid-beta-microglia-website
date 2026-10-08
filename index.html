@@ -297,6 +297,61 @@
   .slider:not(.locked) .lock-note { color: var(--overlap); }
   @media (prefers-reduced-motion: reduce) { .runner, .runner *, .runner::before, .target-glow, .bubble.pop { animation: none !important; transition: none !important; } }
 
+  /* page tour companion */
+  .buddy { position: fixed; left: 0; top: 0; z-index: 50; width: 0; height: 0; }
+  .buddy-mouse { all: unset; cursor: pointer; position: fixed; z-index: 51; width: 64px; height: 44px; transition: left 1.3s cubic-bezier(.45,0,.25,1), top 1.3s cubic-bezier(.45,0,.25,1), transform .3s; }
+  .buddy-mouse .mouse { width: 64px; height: 44px; display: block; filter: drop-shadow(0 0 6px rgba(255,216,74,.95)) drop-shadow(0 0 14px rgba(255,143,177,.7)); }
+  .buddy-mouse.face-right .mouse { transform: scaleX(-1); }
+  .buddy-mouse::before { content: ""; position: absolute; left: 32px; top: 22px; width: 70px; height: 70px; margin: -35px 0 0 -35px; border-radius: 50%; border: 2px solid rgba(255,216,74,.9); animation: ring 1.5s ease-out infinite; pointer-events: none; }
+  .buddy-mouse.small { transform: scale(.7); }
+  .buddy-mouse.small::before { animation-duration: 2.4s; }
+  .buddy-mouse:focus-visible { outline: 2px solid var(--overlap); outline-offset: 4px; border-radius: 10px; }
+  .buddy-mouse.hidden-off { left: calc(100vw + 20px) !important; }
+  .mouse .leg { transform-box: fill-box; transform-origin: 50% 0; }
+  .running .mouse .leg.l1, .running .mouse .leg.l4 { animation: legA .26s ease-in-out infinite alternate; }
+  .running .mouse .leg.l2, .running .mouse .leg.l3 { animation: legB .26s ease-in-out infinite alternate; }
+  .running .mouse { animation: scurry .13s ease-in-out infinite alternate; }
+  .buddy-mouse.running.face-right .mouse { animation: scurryR .13s ease-in-out infinite alternate; }
+  .running .mouse .tail { animation: wag .26s ease-in-out infinite; transform-origin: 50px 26px; }
+  @keyframes legA { 0% { transform: rotate(-42deg); } 100% { transform: rotate(42deg); } }
+  @keyframes legB { 0% { transform: rotate(42deg); } 100% { transform: rotate(-42deg); } }
+  .paw { position: absolute; z-index: 49; width: 7px; height: 8px; margin: -4px 0 0 -3px; border-radius: 50% 50% 45% 45%; background: #FF8FB1; box-shadow: -4px -5px 0 -1.5px #FF8FB1, 0 -7px 0 -1.5px #FF8FB1, 4px -5px 0 -1.5px #FF8FB1; pointer-events: none; animation: pawfade 1.6s ease-out forwards; }
+  @keyframes pawfade { 0% { opacity: .95; transform: scale(1); } 100% { opacity: 0; transform: scale(.7); } }
+  @keyframes scurryR { from { transform: scaleX(-1) translateY(0); } to { transform: scaleX(-1) translateY(-3px); } }
+  .runner.running .foot { animation: none; }
+  .buddy-card { position: fixed; z-index: 52; width: min(300px, calc(100vw - 32px)); background: var(--panel); border: 2px solid var(--overlap); border-radius: 14px; padding: 14px 16px; box-shadow: 0 10px 40px rgba(0,0,0,.5), 0 0 24px rgba(255,216,74,.25); transition: left .95s cubic-bezier(.45,0,.25,1), top .95s cubic-bezier(.45,0,.25,1), opacity .25s; }
+  .buddy-card[hidden] { display: none; }
+  .buddy-mini { position: fixed; z-index: 52; display: flex; gap: 6px; padding: 6px; background: rgba(19,27,46,.92); border: 1px solid var(--overlap); border-radius: 12px; box-shadow: 0 6px 24px rgba(0,0,0,.45); }
+  .buddy-mini[hidden] { display: none; }
+  .buddy-say { position: fixed; z-index: 52; margin: 0; max-width: 260px; background: var(--overlap); color: #1A1400; font-weight: 600; font-size: 14px; line-height: 1.35; padding: 9px 12px; border-radius: 12px; box-shadow: 0 6px 22px rgba(0,0,0,.45); }
+  .buddy-say[hidden] { display: none; }
+  .buddy-say.pop { animation: pop .35s ease-out, flash 1.4s ease-in-out .35s infinite; }
+  .buddy-form { display: grid; gap: 6px; width: min(320px, calc(100vw - 32px)); }
+  .buddy-form[hidden] { display: none; }
+  .buddy-form label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .buddy-form .req { color: var(--overlap); } .buddy-form .opt { color: var(--muted); }
+  .buddy-form input, .buddy-form textarea { font: 15px "Schibsted Grotesk", system-ui, sans-serif; color: var(--text); background: #0A0F1B; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; resize: vertical; }
+  .buddy-form input:focus, .buddy-form textarea:focus { outline: 2px solid var(--overlap); outline-offset: 0; border-color: transparent; }
+  .buddy-form .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .buddy-form .buddy-btns { margin-top: 6px; }
+  .bf-status { margin: 0; font-size: 13.5px; min-height: 0; }
+  .bf-status:empty { display: none; }
+  .bf-status.err { color: #FF8A8A; } .bf-status.ok { color: var(--abeta); }
+  .bf-status a { color: var(--dapi); }
+  .buddy-mini.pop { animation: pop .35s ease-out; }
+  .buddy-mini .tbtn { padding: 7px 14px; font-size: 14px; }
+  .buddy-mouse.run-down .mouse { transform: rotate(-90deg); }
+  .buddy-mouse.running.run-down .mouse { animation: scurryD .18s ease-in-out infinite alternate; }
+  @keyframes scurryD { from { transform: rotate(-90deg) translateY(0); } to { transform: rotate(-90deg) translateY(-4px); } }
+  .buddy-mouse.running.run-down .mouse { animation-duration: .13s; }
+  .buddy-card.pop { animation: pop .35s ease-out; }
+  .buddy-step { margin: 0 0 4px; font-size: 12.5px; color: var(--overlap); font-weight: 600; }
+  .buddy-step:empty { display: none; }
+  .buddy-text { margin: 0 0 12px; font-size: 15px; line-height: 1.45; color: var(--text); }
+  .buddy-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  .buddy-btns .tbtn { padding: 8px 14px; font-size: 14px; }
+  @media (prefers-reduced-motion: reduce) { .buddy-mouse, .buddy-card { transition: none !important; } .buddy-mouse::before, .running .mouse, .running .mouse .leg { animation: none !important; } }
+
   /* hint */
   .tryit { margin: 0 0 12px; font-size: 13px; color: var(--overlap); display: flex; align-items: center; gap: 8px; }
   .tryit::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--overlap); box-shadow: 0 0 0 0 rgba(255,216,74,.6); animation: ping 1.8s ease-out 3; }
@@ -494,16 +549,20 @@
     </div>
 
     <figure class="viewer" style="margin:0">
-      <div class="runner" id="runner" aria-hidden="true"><svg class="mouse" viewBox="0 0 64 40" aria-hidden="true">
-  <path class="tail" d="M50 27c8 0 10-8 6-13" fill="none" stroke="#FF8FB1" stroke-width="2.4" stroke-linecap="round"/>
-  <ellipse cx="33" cy="25" rx="18" ry="11.5" fill="#FFFFFF"/>
-  <circle cx="16" cy="20" r="10" fill="#FFFFFF"/>
-  <circle cx="20" cy="9" r="7" fill="#FFFFFF"/><circle cx="20" cy="9" r="4.2" fill="#FF8FB1"/>
-  <circle class="eye" cx="11.5" cy="18" r="2" fill="#1A1400"/>
-  <circle cx="5.5" cy="22" r="2.4" fill="#FF5C8A"/>
-  <path d="M8 23l-6 -1M8 24.5l-6 2M9 26l-5 4" stroke="#B8A27A" stroke-width="0.9" stroke-linecap="round"/>
-  <ellipse class="foot f1" cx="24" cy="36" rx="4" ry="2.2" fill="#FF8FB1"/>
-  <ellipse class="foot f2" cx="40" cy="36" rx="4" ry="2.2" fill="#FF8FB1"/>
+      <div class="runner" id="runner" aria-hidden="true"><svg class="mouse" viewBox="0 0 64 44" aria-hidden="true">
+  <g class="legs" fill="#FF8FB1">
+    <rect class="leg l1" x="20" y="30" width="3.6" height="10" rx="1.8"/>
+    <rect class="leg l2" x="26" y="31" width="3.6" height="9" rx="1.8"/>
+    <rect class="leg l3" x="38" y="31" width="3.6" height="9" rx="1.8"/>
+    <rect class="leg l4" x="44" y="30" width="3.6" height="10" rx="1.8"/>
+  </g>
+  <path class="tail" d="M50 26c8 0 10-8 6-13" fill="none" stroke="#FF8FB1" stroke-width="2.4" stroke-linecap="round"/>
+  <ellipse cx="33" cy="24" rx="18" ry="11.5" fill="#FFFFFF"/>
+  <circle cx="16" cy="19" r="10" fill="#FFFFFF"/>
+  <circle cx="20" cy="8" r="7" fill="#FFFFFF"/><circle cx="20" cy="8" r="4.2" fill="#FF8FB1"/>
+  <circle class="eye" cx="11.5" cy="17" r="2" fill="#1A1400"/>
+  <circle cx="5.5" cy="21" r="2.4" fill="#FF5C8A"/>
+  <path d="M8 22l-6 -1M8 23.5l-6 2M9 25l-5 4" stroke="#B8A27A" stroke-width="0.9" stroke-linecap="round"/>
 </svg></div>
       <div class="viewer-grid">
         <div class="stage">
@@ -691,16 +750,20 @@
               <p id="tour-desc"></p>
             </div>
             <div class="tour-btns">
-              <div class="guide guide-sm" id="tour-guide"><svg class="mouse" viewBox="0 0 64 40" aria-hidden="true">
-  <path class="tail" d="M50 27c8 0 10-8 6-13" fill="none" stroke="#FF8FB1" stroke-width="2.4" stroke-linecap="round"/>
-  <ellipse cx="33" cy="25" rx="18" ry="11.5" fill="#FFFFFF"/>
-  <circle cx="16" cy="20" r="10" fill="#FFFFFF"/>
-  <circle cx="20" cy="9" r="7" fill="#FFFFFF"/><circle cx="20" cy="9" r="4.2" fill="#FF8FB1"/>
-  <circle class="eye" cx="11.5" cy="18" r="2" fill="#1A1400"/>
-  <circle cx="5.5" cy="22" r="2.4" fill="#FF5C8A"/>
-  <path d="M8 23l-6 -1M8 24.5l-6 2M9 26l-5 4" stroke="#B8A27A" stroke-width="0.9" stroke-linecap="round"/>
-  <ellipse class="foot f1" cx="24" cy="36" rx="4" ry="2.2" fill="#FF8FB1"/>
-  <ellipse class="foot f2" cx="40" cy="36" rx="4" ry="2.2" fill="#FF8FB1"/>
+              <div class="guide guide-sm" id="tour-guide"><svg class="mouse" viewBox="0 0 64 44" aria-hidden="true">
+  <g class="legs" fill="#FF8FB1">
+    <rect class="leg l1" x="20" y="30" width="3.6" height="10" rx="1.8"/>
+    <rect class="leg l2" x="26" y="31" width="3.6" height="9" rx="1.8"/>
+    <rect class="leg l3" x="38" y="31" width="3.6" height="9" rx="1.8"/>
+    <rect class="leg l4" x="44" y="30" width="3.6" height="10" rx="1.8"/>
+  </g>
+  <path class="tail" d="M50 26c8 0 10-8 6-13" fill="none" stroke="#FF8FB1" stroke-width="2.4" stroke-linecap="round"/>
+  <ellipse cx="33" cy="24" rx="18" ry="11.5" fill="#FFFFFF"/>
+  <circle cx="16" cy="19" r="10" fill="#FFFFFF"/>
+  <circle cx="20" cy="8" r="7" fill="#FFFFFF"/><circle cx="20" cy="8" r="4.2" fill="#FF8FB1"/>
+  <circle class="eye" cx="11.5" cy="17" r="2" fill="#1A1400"/>
+  <circle cx="5.5" cy="21" r="2.4" fill="#FF5C8A"/>
+  <path d="M8 22l-6 -1M8 23.5l-6 2M9 25l-5 4" stroke="#B8A27A" stroke-width="0.9" stroke-linecap="round"/>
 </svg><p class="bubble">Click Next!</p></div>
               <button class="tbtn" id="tour-back" type="button">Back</button>
               <button class="tbtn primary pulse" id="tour-next" type="button">Next step</button>
@@ -886,6 +949,49 @@ Processing: Sample_A_Field1_ch02.tif
   </div>
 </footer>
 
+<div class="buddy" id="buddy">
+  <div class="buddy-card" id="buddy-card" role="dialog" aria-live="polite" aria-label="Tour guide" hidden>
+    <p class="buddy-step" id="buddy-step"></p>
+    <p class="buddy-text" id="buddy-text"></p>
+    <div class="buddy-btns">
+      <button type="button" class="tbtn primary" id="buddy-go">Yes please</button>
+      <button type="button" class="tbtn" id="buddy-stop">No thanks</button>
+    </div>
+  </div>
+  <p class="buddy-say" id="buddy-say" hidden></p>
+  <form class="buddy-card buddy-form" id="buddy-form" hidden novalidate>
+    <p class="buddy-text">Do you like it? Leave a message for the owner to encourage more projects like this!</p>
+    <label for="bf-name">Your name <span class="req">(required)</span></label>
+    <input id="bf-name" name="name" type="text" autocomplete="name" required maxlength="80">
+    <label for="bf-msg">Message <span class="opt">(optional)</span></label>
+    <textarea id="bf-msg" name="message" rows="3" maxlength="1500"></textarea>
+    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <p class="bf-status" id="bf-status" role="status"></p>
+    <div class="buddy-btns">
+      <button type="submit" class="tbtn primary" id="bf-send">Send message</button>
+      <button type="button" class="tbtn" id="bf-skip">No thanks</button>
+    </div>
+  </form>
+  <div class="buddy-mini" id="buddy-mini" hidden>
+    <button type="button" class="tbtn primary pulse" id="buddy-next">Next</button>
+    <button type="button" class="tbtn" id="buddy-end">End tour</button>
+  </div>
+  <button type="button" class="buddy-mouse" id="buddy-mouse" aria-label="Tour guide mouse. Click to start or stop the tour" title="Click me to start or stop the tour"><svg class="mouse" viewBox="0 0 64 44" aria-hidden="true">
+  <g class="legs" fill="#FF8FB1">
+    <rect class="leg l1" x="20" y="30" width="3.6" height="10" rx="1.8"/>
+    <rect class="leg l2" x="26" y="31" width="3.6" height="9" rx="1.8"/>
+    <rect class="leg l3" x="38" y="31" width="3.6" height="9" rx="1.8"/>
+    <rect class="leg l4" x="44" y="30" width="3.6" height="10" rx="1.8"/>
+  </g>
+  <path class="tail" d="M50 26c8 0 10-8 6-13" fill="none" stroke="#FF8FB1" stroke-width="2.4" stroke-linecap="round"/>
+  <ellipse cx="33" cy="24" rx="18" ry="11.5" fill="#FFFFFF"/>
+  <circle cx="16" cy="19" r="10" fill="#FFFFFF"/>
+  <circle cx="20" cy="8" r="7" fill="#FFFFFF"/><circle cx="20" cy="8" r="4.2" fill="#FF8FB1"/>
+  <circle class="eye" cx="11.5" cy="17" r="2" fill="#1A1400"/>
+  <circle cx="5.5" cy="21" r="2.4" fill="#FF5C8A"/>
+  <path d="M8 22l-6 -1M8 23.5l-6 2M9 25l-5 4" stroke="#B8A27A" stroke-width="0.9" stroke-linecap="round"/>
+</svg></button>
+</div>
 <script>
 (function () {
   // ---- Real sample images ----
@@ -1194,6 +1300,248 @@ Processing: Sample_A_Field1_ch02.tif
   document.getElementById("tour-next").addEventListener("click", function () { go(step === STEPS.length - 1 ? 0 : step + 1); });
   document.getElementById("tour-back").addEventListener("click", function () { go(step - 1); });
   document.getElementById("tour-thr").addEventListener("input", function (e) { tourT = +e.target.value; document.getElementById("tour-thr-out").textContent = tourT; tourRender(); });
+
+  // ---- page tour companion ----
+  (function () {
+    var m = document.getElementById("buddy-mouse"), card = document.getElementById("buddy-card");
+    var tx = document.getElementById("buddy-text"), stepEl = document.getElementById("buddy-step");
+    var go = document.getElementById("buddy-go"), stop = document.getElementById("buddy-stop");
+    var STOPS = [
+      { el: ".viewer .stage", helper: "hero", text: "Start here: this is a real microscope image. Try the buttons next to it. My little helper there shows you where to click!" },
+      { el: "#problem", text: "The problem: hundreds of images, measured by hand, and different people get different answers." },
+      { el: "#why", text: "The science in three pictures. Watch the green clumps end up inside the red immune cell." },
+      { el: "#pipeline", helper: "walk", text: "Your turn! Click Next step in the walkthrough to see the pipeline work on the real image." },
+      { el: "#outputs", text: "Every run gives a results table, check images, a visual report and a full log." },
+      { el: "#skills", text: "These are the skills and tools behind this project." },
+      { el: "#credits", text: "Thanks for visiting! The people behind the project are here, and you can request the code at the bottom." }
+    ];
+    var idx = -1, mx = 0, my = 0, mode = "corner";
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function vw() { return document.documentElement.clientWidth; }
+    function vh() { return window.innerHeight; }
+    function moveMouse(x, y) {
+      m.classList.toggle("face-right", x > mx + 4);
+      m.classList.add("running");
+      m.style.left = x + "px"; m.style.top = y + "px"; mx = x; my = y;
+      clearTimeout(moveMouse.t); moveMouse.t = setTimeout(function () { m.classList.remove("running"); m.classList.remove("face-right"); }, reduce ? 0 : 1350);
+    }
+    function placeCard() {
+      var w = card.offsetWidth || 300, h = card.offsetHeight || 140;
+      var x = mx + 72, y = my - 10;
+      if (mode === "tour" && idx > 0) { x = mx; y = my + 54; w = Math.min(w, 300); }
+      if (x + w > vw() - 12) x = mx - w - 12;
+      if (x < 12) x = 12;
+      if (y + h > vh() - 12) { y = (mode === "tour" && idx > 0) ? my - h - 12 : vh() - h - 12; }
+      if (y < 70) y = 70;
+      if (vw() < 700) { x = 16; y = vh() - h - 76; }
+      card.style.left = x + "px"; card.style.top = y + "px";
+    }
+    function show(text, step, goLabel, stopLabel) {
+      tx.textContent = text; stepEl.textContent = step || "";
+      go.textContent = goLabel; stop.textContent = stopLabel;
+      card.hidden = false; card.classList.remove("pop"); void card.offsetWidth; card.classList.add("pop");
+      placeCard();
+    }
+    function toCorner() {
+      mode = "corner"; idx = -1; card.hidden = true; m.classList.add("small");
+      moveMouse(vw() - 84, vh() - 70);
+    }
+    function corner() { return { x: vw() - 84, y: vh() - 70 }; }
+    function intro() {
+      mode = "intro"; m.classList.remove("small");
+      var c = corner(); moveMouse(c.x - 10, c.y - 10);
+      setTimeout(function () { show("Hi! Want a quick tour of this project?", "", "Yes please", "No thanks"); }, reduce ? 0 : 500);
+    }
+    var tourTimer = null, runId = 0;
+    var mini = document.getElementById("buddy-mini"), nextBtn = document.getElementById("buddy-next"), endBtn = document.getElementById("buddy-end");
+    function placeMini() {
+      var w = mini.offsetWidth || 170, h = mini.offsetHeight || 40;
+      var x = mx + 72, y = my + 2;
+      if (x + w > vw() - 12) x = mx - w - 10;
+      if (x < 12) x = 12;
+      if (vw() < 700) { x = mx > vw() / 2 ? mx - w - 10 : mx + 72; y = my + 2; }
+      mini.style.left = x + "px"; mini.style.top = Math.min(y, vh() - h - 10) + "px";
+    }
+    // ---- speech bubble, helper completion, end form ----
+    var sayEl = document.getElementById("buddy-say"), form = document.getElementById("buddy-form");
+    var helperState = { stop: -1, views: {}, slid: false, done: false };
+    function placeSay() {
+      if (sayEl.hidden) return;
+      var w = sayEl.offsetWidth || 240, h = sayEl.offsetHeight || 50;
+      var x = mx + 72, y = my - h - 8;
+      if (x + w > vw() - 12) x = Math.max(12, mx - w - 10);
+      if (vw() < 700) { x = 16; }
+      if (y < 70) y = my + 50;
+      sayEl.style.left = x + "px"; sayEl.style.top = y + "px";
+    }
+    function say(t) { sayEl.textContent = t; sayEl.hidden = false; sayEl.classList.remove("pop"); void sayEl.offsetWidth; sayEl.classList.add("pop"); placeSay(); }
+    function hush() { sayEl.hidden = true; }
+    function arrived(i) {
+      var st = STOPS[i];
+      if (i === STOPS.length - 1) { showForm(); return; }
+      showMini(false);
+      if (st.helper) {
+        helperState = { stop: i, views: {}, slid: false, done: false };
+        say("Interact with my little helper to the right!");
+      } else hush();
+    }
+    function helperDone() {
+      if (mode !== "tour" || helperState.stop !== idx || helperState.done) return;
+      helperState.done = true;
+      say("Great job! Let's go to the next part.");
+      var id = runId;
+      setTimeout(function () { if (id === runId && mode === "tour") goTo(idx + 1); }, reduce ? 600 : 1800);
+    }
+    // hero viewer: done after trying 4 views, or after using the slider
+    document.querySelectorAll(".views button").forEach(function (b) {
+      b.addEventListener("click", function () {
+        if (STOPS[idx] && STOPS[idx].helper === "hero" && helperState.stop === idx) {
+          helperState.views[b.dataset.view] = 1;
+          if (Object.keys(helperState.views).length >= 4) helperDone();
+        }
+      });
+    });
+    document.getElementById("thr").addEventListener("change", function () {
+      if (STOPS[idx] && STOPS[idx].helper === "hero" && helperState.stop === idx) helperDone();
+    });
+    // walkthrough: done when the visitor reaches the last step
+    ["tour-next", "tour-dots"].forEach(function (idn) {
+      document.getElementById(idn).addEventListener("click", function () {
+        setTimeout(function () {
+          if (STOPS[idx] && STOPS[idx].helper === "walk" && helperState.stop === idx && /8 of 8/.test(document.getElementById("tour-count").textContent)) helperDone();
+        }, 50);
+      });
+    });
+    function showForm() {
+      hush(); mini.hidden = true; form.hidden = false;
+      form.classList.remove("pop"); void form.offsetWidth; form.classList.add("pop");
+      var w = form.offsetWidth || 320, h = form.offsetHeight || 300;
+      var x = mx + 72, y = my - h / 2;
+      if (x + w > vw() - 12) x = Math.max(12, mx - w - 10);
+      if (vw() < 700) { x = 16; y = vh() - h - 80; }
+      form.style.left = x + "px"; form.style.top = Math.max(70, Math.min(y, vh() - h - 12)) + "px";
+      setTimeout(function () { document.getElementById("bf-name").focus({ preventScroll: true }); }, 400);
+    }
+    var OWNER_EMAIL = "spanakan@iu.edu";
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var nameEl = document.getElementById("bf-name"), status = document.getElementById("bf-status"), btn = document.getElementById("bf-send");
+      var name = nameEl.value.trim(), msg = document.getElementById("bf-msg").value.trim();
+      if (!name) { status.textContent = "Please add your name so the owner knows who said hi."; status.className = "bf-status err"; nameEl.focus(); return; }
+      if (form.elements._honey.value) return;
+      btn.disabled = true; status.className = "bf-status"; status.textContent = "Sending...";
+      fetch("https://formsubmit.co/ajax/" + OWNER_EMAIL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({ name: name, message: msg || "(no message)", _subject: "New message from your project website", _template: "table" })
+      }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || j.success === "false" || j.success === false) throw 0; }); })
+        .then(function () {
+          status.className = "bf-status ok"; status.textContent = "Thank you, " + name + "! Your message was sent.";
+          setTimeout(function () { form.hidden = true; btn.disabled = false; form.reset(); status.textContent = ""; stopTour(); }, 2600);
+        })
+        .catch(function () {
+          btn.disabled = false; status.className = "bf-status err";
+          status.innerHTML = "Couldn't send right now. You can email <a href=\"mailto:" + OWNER_EMAIL + "\">" + OWNER_EMAIL + "</a> instead.";
+        });
+    });
+    document.getElementById("bf-skip").addEventListener("click", function () { form.hidden = true; stopTour(); });
+
+    function showMini(last) {
+      nextBtn.textContent = last ? "Done" : "Next";
+      mini.hidden = false; mini.classList.remove("pop"); void mini.offsetWidth; mini.classList.add("pop");
+      placeMini();
+    }
+    function stopTour() {
+      if (mode !== "tour") return;
+      runId++; clearTimeout(tourTimer); mini.hidden = true; hush(); form.hidden = true; m.classList.remove("running"); m.classList.remove("run-down"); toCorner();
+    }
+    function goTo(i) {
+      if (i >= STOPS.length) { mode = "corner"; toCorner(); return; }
+      idx = i; mode = "tour"; card.hidden = true; mini.hidden = true; hush(); form.hidden = true; m.classList.remove("small");
+      var my_run = ++runId;
+      var target = document.querySelector(STOPS[i].el); if (!target) { goTo(i + 1); return; }
+      var sec = target.closest("section, header") || target;
+      var secTop = sec.getBoundingClientRect().top + window.pageYOffset;
+      var top = Math.max(0, Math.min(secTop - 70, document.documentElement.scrollHeight - vh()));
+      // where the spot will be once the page has scrolled, so the mouse runs while the page scrolls
+      var r = target.getBoundingClientRect(), hEl = sec.querySelector(".split > header");
+      var hdr = ((hEl && hEl.lastElementChild) || target).getBoundingClientRect();
+      var shift = window.pageYOffset - top, x, y;
+      if (vw() < 700) { x = (i % 2 ? vw() - 84 : 16); y = vh() - 80; }
+      else if (i === 0) { x = r.left + 8; y = r.bottom + shift + 14; }
+      else { x = hdr.left; y = hdr.bottom + shift + 28; }
+      y = Math.max(80, Math.min(y, vh() - 80));
+      tourScrolling = true;
+      var down = top > window.pageYOffset + 40;
+      m.classList.add("running"); m.classList.toggle("run-down", down);
+      m.classList.toggle("face-right", !down && x > mx + 4);
+      runTo(my_run, top, x, y, function () {
+        tourScrolling = false;
+        m.classList.remove("running"); m.classList.remove("face-right"); m.classList.remove("run-down");
+        arrived(i);
+      });
+    }
+    // run the mouse and scroll the page together, one step at a time
+    function runTo(id, endTop, ex, ey, done) {
+      var sy = window.pageYOffset, sx0 = mx, sy0 = my;
+      var dist = Math.abs(endTop - sy) + Math.hypot(ex - sx0, ey - sy0);
+      var dur = reduce ? 0 : Math.max(1500, Math.min(4200, dist * 2.4));
+      var t0 = performance.now(), lastPaw = 0, pawSide = 0;
+      m.style.transition = "none";
+      function ease(t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+      function frame(now) {
+        if (id !== runId) { m.style.transition = ""; return; }
+        var t = dur ? Math.min(1, (now - t0) / dur) : 1, e = ease(t);
+        window.scrollTo({ top: sy + (endTop - sy) * e, left: 0, behavior: "instant" });
+        var cx = sx0 + (ex - sx0) * e, cy = sy0 + (ey - sy0) * e;
+        m.style.left = cx + "px"; m.style.top = cy + "px"; mx = cx; my = cy;
+        if (!reduce && now - lastPaw > 260 && t < .97) { lastPaw = now; paw(cx, cy, pawSide ^= 1); }
+        if (t < 1) requestAnimationFrame(frame);
+        else { mx = ex; my = ey; m.style.transition = ""; setTimeout(function () { if (id === runId) done(); }, 150); }
+      }
+      requestAnimationFrame(frame);
+    }
+    function paw(cx, cy, side) {
+      var d = document.createElement("span"); d.className = "paw";
+      var down = m.classList.contains("run-down");
+      var px = cx + 32 + (down ? (side ? -7 : 7) : 0), py = cy + 22 + (down ? -26 : (side ? -6 : 6));
+      if (!down) px += m.classList.contains("face-right") ? -30 : 30;
+      d.style.left = px + "px"; d.style.top = (py + window.pageYOffset) + "px";
+      document.body.appendChild(d);
+      setTimeout(function () { d.remove(); }, 1600);
+    }
+    function whenScrolled(target, cb) {
+      var t0 = Date.now(), last = -1, same = 0;
+      (function tick() {
+        var y = window.pageYOffset;
+        same = (y === last) ? same + 1 : 0; last = y;
+        var arrived = Math.abs(y - target) < 2;
+        if ((arrived && same >= 2) || (Date.now() - t0 > 400 && same >= 8) || Date.now() - t0 > 2500) cb(); else requestAnimationFrame(tick);
+      })();
+    }
+    var tourScrolling = false;
+    go.addEventListener("click", function () { goTo(0); });
+    nextBtn.addEventListener("click", function () { if (idx >= STOPS.length - 1) stopTour(); else goTo(idx + 1); });
+    window.addEventListener("resize", function () { placeSay(); });
+    endBtn.addEventListener("click", stopTour);
+    // the visitor takes over: stop the tour
+    ["wheel", "touchstart", "keydown"].forEach(function (ev) {
+      window.addEventListener(ev, function (e) {
+        if (mode !== "tour" || !tourScrolling) return;
+        if (e.target && e.target.closest && (e.target.closest(".buddy") || e.target.closest(".viewer") || e.target.closest(".tour"))) return;
+        stopTour();
+      }, { passive: true });
+    });
+    stop.addEventListener("click", toCorner);
+    m.addEventListener("click", function () {
+      if (mode === "tour") { stopTour(); return; }
+      if (mode === "corner") intro();
+    });
+    window.addEventListener("resize", function () { if (mode === "corner") toCorner(); else if (!card.hidden) placeCard(); if (!mini.hidden) placeMini(); });
+    // start: hidden off-screen, then pop in from the side
+    m.style.left = (vw() + 20) + "px"; m.style.top = (vh() - 80) + "px"; mx = vw() + 20; my = vh() - 80;
+    setTimeout(intro, reduce ? 0 : 1400);
+  })();
 
   refreshAll();   // simulated image first, so the page is never empty
 
