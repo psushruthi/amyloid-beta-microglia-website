@@ -243,6 +243,23 @@
   .chips li { border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; font-size: 14px; color: var(--text); background: var(--panel); }
   .approach { margin-top: 28px; padding: 18px 20px; border-left: 3px solid var(--dapi); background: var(--panel); border-radius: 0 8px 8px 0; color: #CDD4E4; font-size: 15.5px; }
 
+  /* owl guide */
+  .guide { display: flex; align-items: center; gap: 10px; margin: 0 0 12px; }
+  .guide .owl { width: 46px; height: 50px; flex: none; animation: bob 2.4s ease-in-out infinite; transform-origin: 50% 100%; }
+  .guide .owl .eyes { animation: blink 4s infinite; transform-origin: 24px 22px; }
+  .guide.happy .owl { animation: hop .5s ease-out 2; }
+  .bubble { position: relative; margin: 0; background: var(--overlap); color: #1A1400; font-size: 13.5px; font-weight: 600; line-height: 1.3; padding: 8px 11px; border-radius: 10px; }
+  .bubble::before { content: ""; position: absolute; left: -6px; top: 50%; margin-top: -6px; border: 6px solid transparent; border-left: 0; border-right-color: var(--overlap); }
+  .guide-sm { margin: 0 4px 0 0; }
+  .guide-sm .owl { width: 36px; height: 40px; }
+  .guide-sm .bubble { font-size: 12.5px; padding: 6px 9px; white-space: nowrap; }
+  .guide[hidden] { display: none; }
+  @keyframes bob { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-4px) rotate(-3deg); } }
+  @keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.1); } }
+  @keyframes hop { 0% { transform: translateY(0); } 40% { transform: translateY(-10px) rotate(6deg); } 100% { transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) { .guide .owl, .guide .owl .eyes { animation: none !important; } }
+  @media (max-width: 640px) { .tour-btns { flex-wrap: wrap; } .guide-sm { width: 100%; } }
+
   /* hint */
   .tryit { margin: 0 0 12px; font-size: 13px; color: var(--overlap); display: flex; align-items: center; gap: 8px; }
   .tryit::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--overlap); box-shadow: 0 0 0 0 rgba(255,216,74,.6); animation: ping 1.8s ease-out 3; }
@@ -285,7 +302,13 @@
   .story .soma { fill: var(--iba1); fill-opacity: .55; stroke: var(--iba1); stroke-width: 2; }
   .story .nuc { fill: var(--dapi); }
   .story .clump circle { fill: var(--abeta); filter: drop-shadow(0 0 4px rgba(94,227,140,.6)); }
-  .story .inside circle { fill: var(--overlap); filter: drop-shadow(0 0 4px rgba(255,216,74,.7)); }
+  .story .clump.in circle { filter: drop-shadow(0 0 3px rgba(94,227,140,.9)); }
+  .story .ghost circle { fill: none; stroke: var(--abeta); stroke-width: 1.5; stroke-dasharray: 3 3; opacity: .7; }
+  .story .move { stroke: var(--text); stroke-width: 2; stroke-dasharray: 4 3; fill: none; opacity: .8; }
+  .story .move-head { stroke: var(--text); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; opacity: .8; }
+  .story .tag { fill: var(--abeta); font: 700 13px "Schibsted Grotesk", system-ui, sans-serif; text-anchor: middle; }
+  .story .tag.in { fill: #FFFFFF; font-size: 11px; }
+  .story .divider { stroke: var(--line); stroke-dasharray: 3 4; }
   .story .reach { fill: none; stroke: var(--iba1); stroke-width: 4; stroke-linecap: round; opacity: .85; }
   .story .lbl { fill: var(--muted); font: 500 13px "Schibsted Grotesk", system-ui, sans-serif; text-anchor: middle; }
   .takeaway { margin: 22px 0 0; padding: 14px 18px; border-left: 3px solid var(--overlap); background: var(--panel); border-radius: 0 8px 8px 0; color: #CDD4E4; }
@@ -307,6 +330,52 @@
   .flowline { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; counter-reset: fl; }
   .flowline li { counter-increment: fl; display: flex; align-items: center; gap: 8px; font-size: 14px; padding: 7px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); }
   .flowline li::before { content: counter(fl); color: var(--muted); font-size: 12px; }
+
+  /* guided walkthrough */
+  .tour [hidden] { display: none !important; }
+  .tour { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin-bottom: 36px; }
+  .tour-bar { display: flex; gap: 20px; align-items: center; justify-content: space-between; padding: 18px 20px; background: linear-gradient(90deg, rgba(255,216,74,.10), rgba(255,216,74,0) 70%); border-bottom: 1px solid var(--line); }
+  @media (max-width: 640px) { .tour-bar { flex-direction: column; align-items: stretch; } }
+  .tour-count { margin: 0; font-size: 13px; color: var(--overlap); font-weight: 600; }
+  .tour-text h3 { margin: 2px 0 4px; font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+  .tour-text p#tour-desc { margin: 0; color: #CDD4E4; font-size: 15px; max-width: 40em; }
+  .tour-btns { display: flex; gap: 10px; flex: none; }
+  .tbtn { font: 600 15px "Schibsted Grotesk", system-ui, sans-serif; padding: 11px 18px; border-radius: 8px; cursor: pointer; border: 1px solid var(--line); background: var(--panel-2); color: var(--text); }
+  .tbtn:disabled { opacity: .4; cursor: default; }
+  .tbtn.primary { background: var(--overlap); border-color: var(--overlap); color: #1A1400; }
+  .tbtn.primary:hover { background: #FFE47A; }
+  .tbtn.pulse { animation: tpulse 1.6s ease-out infinite; }
+  @keyframes tpulse { 0% { box-shadow: 0 0 0 0 rgba(255,216,74,.55); } 100% { box-shadow: 0 0 0 12px rgba(255,216,74,0); } }
+  @media (prefers-reduced-motion: reduce) { .tbtn.pulse { animation: none; } }
+  .tour-dots { display: flex; gap: 6px; padding: 12px 20px 0; }
+  .tdot { all: unset; cursor: pointer; flex: 1; height: 5px; border-radius: 3px; background: var(--line); }
+  .tdot.done { background: #6B5D2A; }
+  .tdot[aria-current="step"] { background: var(--overlap); }
+  .tdot:focus-visible { outline: 2px solid var(--overlap); outline-offset: 2px; }
+  .tour-body { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 20px; padding: 16px 20px 20px; align-items: start; }
+  @media (max-width: 760px) { .tour-body { grid-template-columns: 1fr; } }
+  .tour-stage { position: relative; aspect-ratio: 1; border-radius: 10px; overflow: hidden; background: #000; max-width: 560px; }
+  .tour-stage canvas { width: 100%; height: 100%; display: block; }
+  .tour-chip { position: absolute; left: 12px; top: 12px; background: rgba(12,18,32,.85); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; font-size: 13px; }
+  .tour-side { display: grid; gap: 16px; }
+  .tour-stat { display: flex; flex-direction: column; }
+  .tour-stat b { font-size: 34px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1.1; }
+  .tour-stat span { color: var(--muted); font-size: 14px; }
+  .tour-slider label { display: flex; justify-content: space-between; font-size: 14px; color: var(--muted); margin-bottom: 6px; }
+  .tour-slider output { color: var(--text); font-weight: 600; }
+  .tour-slider .scale { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .tour-chart canvas { width: 100%; height: auto; display: block; background: #0A0F1B; border: 1px solid var(--line); border-radius: 8px; }
+  .tour-chart p { margin: 6px 0 0; font-size: 12.5px; color: var(--muted); }
+  .tour-note { margin: 0; font-size: 14px; color: var(--overlap); }
+  .tour-note:empty { display: none; }
+  .tour-map { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; counter-reset: tm; }
+  .tour-map li { counter-increment: tm; display: flex; gap: 10px; align-items: center; font-size: 14px; color: var(--muted); padding: 6px 8px; border-radius: 6px; }
+  .tour-map li::before { content: counter(tm); width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; font-size: 11.5px; flex: none; }
+  .tour-map li.done { color: #CDD4E4; }
+  .tour-map li.done::before { background: #6B5D2A; border-color: #6B5D2A; color: var(--text); }
+  .tour-map li.now { color: var(--text); background: var(--panel-2); font-weight: 600; }
+  .tour-map li.now::before { background: var(--overlap); border-color: var(--overlap); color: #1A1400; }
+  @media (max-width: 760px) { .tour-map { display: none; } }
 
   /* skill cards */
   .skill-cards { list-style: none; margin: 0 0 32px; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
@@ -395,7 +464,16 @@
         </div>
         <div class="side">
           <div>
-            <p class="tryit">Try it: pick a view or drag the slider</p>
+            <div class="guide" id="hero-guide"><svg class="owl" viewBox="0 0 48 52" aria-hidden="true">
+              <path d="M10 14l4-10 6 7M38 14l-4-10-6 7" fill="#6F7FC6"/>
+              <ellipse cx="24" cy="29" rx="17" ry="18" fill="#7F8FD6"/>
+              <ellipse cx="24" cy="35" rx="10.5" ry="10" fill="#C9D2FF"/>
+              <g class="eyes"><circle cx="16.5" cy="22" r="6.2" fill="#fff"/><circle cx="31.5" cy="22" r="6.2" fill="#fff"/>
+              <circle cx="17.5" cy="23" r="3.2" fill="#0C1220"/><circle cx="32.5" cy="23" r="3.2" fill="#0C1220"/>
+              <circle cx="18.6" cy="21.8" r="1.1" fill="#fff"/><circle cx="33.6" cy="21.8" r="1.1" fill="#fff"/></g>
+              <path d="M21.5 27h5l-2.5 4z" fill="#FFD84A"/>
+              <path d="M18 47v3M22 47v3M26 47v3M30 47v3" stroke="#FFD84A" stroke-width="1.6" stroke-linecap="round"/>
+            </svg><p class="bubble" id="hero-bubble">Click a view below or drag the slider!</p></div>
             <h3 id="view-label">What you're looking at</h3>
             <div class="views" role="group" aria-labelledby="view-label">
               <button data-view="dapi"><span class="sw dapi"></span>Nuclei (DAPI)</button>
@@ -474,43 +552,54 @@
         <ol class="story">
           <li>
             <svg viewBox="0 0 220 170" role="img" aria-labelledby="st1">
-              <title id="st1">An immune cell with branches, surrounded by clumps of amyloid-beta protein</title>
+              <title id="st1">An immune cell surrounded by four clumps of amyloid-beta protein</title>
               <use href="#cell" x="110" y="85"/>
               <g class="clump"><circle cx="32" cy="40" r="9"/><circle cx="40" cy="34" r="7"/><circle cx="38" cy="46" r="6"/></g>
-              <g class="clump"><circle cx="186" cy="132" r="10"/><circle cx="196" cy="124" r="7"/></g>
               <g class="clump"><circle cx="190" cy="36" r="7"/><circle cx="198" cy="42" r="5"/></g>
+              <g class="clump"><circle cx="186" cy="132" r="10"/><circle cx="196" cy="124" r="7"/></g>
               <g class="clump"><circle cx="30" cy="138" r="7"/></g>
+              <text class="tag" x="22" y="18">A</text><text class="tag" x="204" y="20">B</text>
             </svg>
             <h3>The protein builds up</h3>
-            <p>In Alzheimer's, amyloid-beta (green) forms clumps in the brain.</p>
+            <p>In Alzheimer's, amyloid-beta (green) forms clumps around the brain's immune cells (red).</p>
           </li>
           <li>
             <svg viewBox="0 0 220 170" role="img" aria-labelledby="st2">
-              <title id="st2">The immune cell reaches out and swallows a clump, which now sits inside the cell</title>
+              <title id="st2">The same immune cell has swallowed clumps A and B, which now sit inside the cell. Dashed outlines show where they were.</title>
+              <g class="ghost"><circle cx="32" cy="40" r="9"/><circle cx="40" cy="34" r="7"/><circle cx="38" cy="46" r="6"/></g>
+              <g class="ghost"><circle cx="190" cy="36" r="7"/><circle cx="198" cy="42" r="5"/></g>
               <use href="#cell" x="110" y="85"/>
-              <g class="inside"><circle cx="100" cy="92" r="6"/></g>
-              <g class="clump"><circle cx="168" cy="40" r="8"/><circle cx="175" cy="46" r="5"/></g>
-              <path class="reach" d="M140 70q16-14 22-26"/>
+              <path class="move" d="M50 50L82 68"/><path class="move-head" d="M73 60l10 8-12 3"/>
+              <path class="move" d="M182 46L142 68"/><path class="move-head" d="M153 58l-11 10 12 2"/>
+              <g class="clump in"><circle cx="97" cy="92" r="8"/><circle cx="104" cy="86" r="6"/><circle cx="103" cy="99" r="5"/></g>
+              <g class="clump in"><circle cx="122" cy="96" r="6.5"/><circle cx="129" cy="90" r="4.5"/></g>
+              <text class="tag in" x="98" y="114">A</text><text class="tag in" x="126" y="114">B</text>
+              <g class="clump"><circle cx="186" cy="132" r="10"/><circle cx="196" cy="124" r="7"/></g>
+              <g class="clump"><circle cx="30" cy="138" r="7"/></g>
+              <text class="tag" x="22" y="18">A</text><text class="tag" x="204" y="20">B</text>
             </svg>
             <h3>Immune cells take it in</h3>
-            <p>Microglia (red) engulf the protein. Inside the cell it shows as yellow.</p>
+            <p>The cell swallows clumps A and B. The same green clumps now sit inside the red cell.</p>
           </li>
           <li>
             <svg viewBox="0 0 220 170" role="img" aria-labelledby="st3">
-              <title id="st3">Two cells compared: untreated with a little protein inside, and with the drug with more protein inside</title>
-              <g transform="translate(-4 0)">
-                <use href="#cell-sm" x="58" y="78"/>
-                <g class="inside"><circle cx="52" cy="84" r="4"/></g>
-                <text class="lbl" x="58" y="152">Untreated</text>
-              </g>
-              <g transform="translate(4 0)">
-                <use href="#cell-sm" x="162" y="78"/>
-                <g class="inside"><circle cx="152" cy="80" r="5"/><circle cx="168" cy="88" r="5"/><circle cx="158" cy="94" r="4"/><circle cx="170" cy="74" r="3.5"/></g>
-                <text class="lbl" x="162" y="152">With drug</text>
-              </g>
+              <title id="st3">Two cells start with the same four clumps nearby. Untreated takes in one. With the drug, it takes in all four; dashed outlines show where they were.</title>
+              <use href="#cell-sm" x="56" y="76"/>
+              <g class="clump in"><circle cx="50" cy="84" r="5.5"/><circle cx="56" cy="80" r="4"/></g>
+              <g class="clump"><circle cx="14" cy="24" r="6"/><circle cx="20" cy="20" r="4"/></g>
+              <g class="clump"><circle cx="98" cy="26" r="6"/></g>
+              <g class="clump"><circle cx="14" cy="128" r="6.5"/><circle cx="21" cy="124" r="4"/></g>
+              <use href="#cell-sm" x="164" y="76"/>
+              <g class="ghost"><circle cx="122" cy="24" r="6"/><circle cx="128" cy="20" r="4"/></g>
+              <g class="ghost"><circle cx="206" cy="26" r="6"/></g>
+              <g class="ghost"><circle cx="122" cy="128" r="6.5"/><circle cx="129" cy="124" r="4"/></g>
+              <g class="clump in"><circle cx="152" cy="84" r="5"/><circle cx="157" cy="80" r="3.5"/><circle cx="168" cy="90" r="5"/><circle cx="175" cy="84" r="3.5"/><circle cx="160" cy="95" r="4"/><circle cx="173" cy="72" r="4"/></g>
+              <line class="divider" x1="110" y1="12" x2="110" y2="140"/>
+              <text class="lbl" x="56" y="158">Untreated</text>
+              <text class="lbl" x="164" y="158">With drug</text>
             </svg>
             <h3>A drug could boost this</h3>
-            <p>More yellow inside the cell means more protein cleared.</p>
+            <p>Same four clumps. With the drug, more of them end up inside the cell.</p>
           </li>
         </ol>
         <p class="takeaway">The pipeline measures exactly this: <strong>how much of each immune cell's area holds the protein</strong>, across every image.</p>
@@ -524,16 +613,16 @@
                 <path d="M0 0c-22 8-40 20-58 40M-36 22c-12 2-22 10-26 18"/>
                 <path d="M0 0c18 14 34 26 44 46M26 22c10 0 20 6 26 14"/>
               </g>
-              <circle r="26" fill="#B23A4A" stroke="#FF5C6C" stroke-width="2"/>
-              <ellipse cx="6" cy="-6" rx="10" ry="8" fill="#6E9BFF"/>
+              <circle r="30" fill="#8E2E3C" stroke="#FF5C6C" stroke-width="2"/>
+              <ellipse cx="8" cy="-12" rx="9" ry="7" fill="#6E9BFF"/>
             </g>
             <g id="cell-sm">
               <g fill="none" stroke="#FF5C6C" stroke-width="4" stroke-linecap="round" opacity="0.85">
                 <path d="M0 0c-14-10-26-14-38-26"/><path d="M0 0c14-8 22-12 34-28"/>
                 <path d="M0 0c-16 6-28 14-40 28"/><path d="M0 0c14 10 24 18 32 32"/>
               </g>
-              <circle r="26" fill="#B23A4A" stroke="#FF5C6C" stroke-width="2"/>
-              <ellipse cx="8" cy="-8" rx="8" ry="6" fill="#6E9BFF"/>
+              <circle r="28" fill="#8E2E3C" stroke="#FF5C6C" stroke-width="2"/>
+              <ellipse cx="10" cy="-12" rx="8" ry="6" fill="#6E9BFF"/>
             </g>
           </defs>
         </svg>
@@ -551,15 +640,49 @@
     <div class="wrap split">
       <header>
         <h2>How the pipeline works</h2>
-        <p>Four steps, shown on the real sample image.</p>
+        <p>Walk through the pipeline step by step on the real sample image.</p>
       </header>
       <div>
-        <ol class="stages">
-          <li><canvas id="st-raw" width="360" height="360" aria-label="Simulated raw image, all three channels"></canvas><h3>Raw image</h3><p>Three color channels, as captured.</p></li>
-          <li><canvas id="st-mask" width="360" height="360" aria-label="Simulated image after applying the threshold"></canvas><h3>Apply one standard</h3><p>A fixed brightness cutoff marks real signal.</p></li>
-          <li><canvas id="st-map" width="360" height="360" aria-label="Simulated check map"></canvas><h3>Measure uptake</h3><p>Yellow: protein inside immune cells.</p></li>
-          <li><div class="zoom"><canvas id="st-count" width="360" height="360" aria-label="Simulated nuclei with outlines, zoomed in"></canvas></div><h3>Count cells</h3><p>Each outlined nucleus is one cell (zoomed in).</p></li>
-        </ol>
+        <div class="tour" id="tour" aria-live="polite">
+          <div class="tour-bar">
+            <div class="tour-text">
+              <p class="tour-count" id="tour-count">Step 1 of 8</p>
+              <h3 id="tour-title">Nuclei</h3>
+              <p id="tour-desc"></p>
+            </div>
+            <div class="tour-btns">
+              <div class="guide guide-sm" id="tour-guide"><svg class="owl" viewBox="0 0 48 52" aria-hidden="true">
+                <path d="M10 14l4-10 6 7M38 14l-4-10-6 7" fill="#6F7FC6"/>
+                <ellipse cx="24" cy="29" rx="17" ry="18" fill="#7F8FD6"/>
+                <ellipse cx="24" cy="35" rx="10.5" ry="10" fill="#C9D2FF"/>
+                <g class="eyes"><circle cx="16.5" cy="22" r="6.2" fill="#fff"/><circle cx="31.5" cy="22" r="6.2" fill="#fff"/>
+                <circle cx="17.5" cy="23" r="3.2" fill="#0C1220"/><circle cx="32.5" cy="23" r="3.2" fill="#0C1220"/>
+                <circle cx="18.6" cy="21.8" r="1.1" fill="#fff"/><circle cx="33.6" cy="21.8" r="1.1" fill="#fff"/></g>
+                <path d="M21.5 27h5l-2.5 4z" fill="#FFD84A"/>
+                <path d="M18 47v3M22 47v3M26 47v3M30 47v3" stroke="#FFD84A" stroke-width="1.6" stroke-linecap="round"/>
+            </svg><p class="bubble">Click Next!</p></div>
+              <button class="tbtn" id="tour-back" type="button">Back</button>
+              <button class="tbtn primary pulse" id="tour-next" type="button">Next step</button>
+            </div>
+          </div>
+          <div class="tour-dots" id="tour-dots" role="group" aria-label="Jump to a step"></div>
+          <div class="tour-body">
+            <div class="tour-stage"><canvas id="tour-canvas" width="360" height="360" aria-label="Pipeline step on the sample image"></canvas><span class="tour-chip" id="tour-chip"></span></div>
+            <div class="tour-side">
+              <div class="tour-stat"><b id="tour-val">0</b><span id="tour-lab"></span></div>
+              <div class="tour-slider" id="tour-slider" hidden>
+                <label for="tour-thr">Threshold <output id="tour-thr-out">30</output></label>
+                <input id="tour-thr" type="range" min="10" max="120" value="30">
+              </div>
+              <div class="tour-chart" id="tour-chart-wrap" hidden>
+                <canvas id="tour-chart" width="440" height="220" aria-label="Uptake percent at each threshold"></canvas>
+                <p>Result at every threshold. The marked line is the fixed value used for every image.</p>
+              </div>
+              <p class="tour-note" id="tour-note"></p>
+              <ol class="tour-map" id="tour-map"></ol>
+            </div>
+          </div>
+        </div>
 
         <p class="subhead">One run, start to finish</p>
         <ol class="flowline">
@@ -843,6 +966,9 @@ Processing: Sample_A_Field1_ch02.tif
       else if (view === "abeta") { R = a * 0.2; G = a; B = a * 0.4; }
       else if (view === "iba1") { R = b; G = b * 0.22; B = b * 0.32; }
       else if (view === "merge") { R = b + a * 0.2 + n * 0.3; G = a + b * 0.22 + n * 0.5; B = n + a * 0.4 + b * 0.32; }
+      else if (view === "iba1mask") {
+        if (b >= t) { R = 255; G = 60; B = 80; } else { R = b * 0.25; G = b * 0.06; B = b * 0.08; }
+      }
       else if (view === "mask") {
         if (b >= t) { R = 255; G = 60; B = 80; }
         if (a >= t) { R = Math.max(R, 60); G = 230; B = Math.max(B, 120); }
@@ -888,18 +1014,103 @@ Processing: Sample_A_Field1_ch02.tif
   });
   document.querySelectorAll(".views button:not([aria-pressed])").forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
   thr.addEventListener("input", update);
+  var praised = false;
+  function praise() { if (praised) return; praised = true; var g = document.getElementById("hero-guide"); g.classList.add("happy"); document.getElementById("hero-bubble").textContent = "Nice! Try another one."; }
+  document.querySelectorAll(".views button").forEach(function (btn) { btn.addEventListener("click", praise); });
+  thr.addEventListener("input", praise);
 
   function refreshAll() {
     update();
     render(document.getElementById("thumb-map"), "map", 30);
     render(document.getElementById("thumb-dapi"), "outline", 30);
     render(document.getElementById("thumb-report"), "map", 30);
-    render(document.getElementById("st-raw"), "merge", 30);
-    render(document.getElementById("st-mask"), "mask", 30);
-    render(document.getElementById("st-map"), "map", 30);
-    render(document.getElementById("st-count"), "outline", 30);
+    chartData = null;
+    if (window.tourRender) window.tourRender();
     document.getElementById("report-pct").textContent = pct(30).toFixed(1) + "%";
   }
+  // ---- guided walkthrough ----
+  var chartData = null;
+  function iba1Area(t) { var c = 0; for (var i = 0; i < N * N; i++) if (iba1[i] >= t) c++; return c / (N * N) * 100; }
+  var STEPS = [
+    { title: "Nuclei", view: "dapi", chip: "DAPI channel",
+      desc: "Every cell has one nucleus, stained blue. This channel is used to count cells.",
+      stat: function () { return { v: "", l: "" }; } },
+    { title: "Count the cells", view: "outline", chip: "Cells counted",
+      desc: "Each nucleus brighter than the threshold is outlined in yellow and counted. One outline is one cell.",
+      stat: function (t) { return { v: components(t, 20).count, l: "cells counted" }; } },
+    { title: "Immune cells", view: "iba1", chip: "Iba1 channel",
+      desc: "The red stain marks microglia, the brain's immune cells.",
+      stat: function () { return { v: "", l: "" }; } },
+    { title: "Amyloid-beta", view: "abeta", chip: "Amyloid-beta channel",
+      desc: "The green label marks the Alzheimer's protein the cells take in.",
+      stat: function () { return { v: "", l: "" }; } },
+    { title: "Find the immune cell area", view: "iba1mask", chip: "Immune cell area",
+      desc: "Every red pixel brighter than the threshold becomes part of the immune cell area.",
+      stat: function (t) { return { v: iba1Area(t).toFixed(1) + "%", l: "of the image is immune cell area" }; } },
+    { title: "Find the protein inside", view: "map", chip: "Check map",
+      desc: "The goal is to measure the green that falls inside the red area. The pipeline calculates the area of green within the red.",
+      stat: function (t) { return { v: pct(t).toFixed(1) + "%", l: "of immune cell area holds amyloid-beta" }; } },
+    { title: "Choose the threshold", view: "map", chip: "Drag the slider", slider: true, chart: true,
+      desc: "Drag the slider. Too low and background noise counts as signal. Too high and real signal is lost.",
+      stat: function (t) { return { v: pct(t).toFixed(1) + "%", l: "of immune cell area holds amyloid-beta" }; } },
+    { title: "Lock it for every image", view: "map", chip: "Threshold fixed at 30", chart: true, fixed: true,
+      desc: "One threshold, 30, is fixed and applied to every image in every run. That is what makes results comparable.",
+      stat: function () { return { v: pct(30).toFixed(1) + "%", l: "uptake at the fixed threshold of 30" }; } }
+  ];
+  var step = 0, tourT = 30;
+  var mapEl = document.getElementById("tour-map");
+  STEPS.forEach(function (st) { var li = document.createElement("li"); li.textContent = st.title; mapEl.appendChild(li); });
+  var tc = document.getElementById("tour-canvas"), dotsEl = document.getElementById("tour-dots");
+  STEPS.forEach(function (st, i) {
+    var d = document.createElement("button"); d.type = "button"; d.className = "tdot";
+    d.setAttribute("aria-label", "Step " + (i + 1) + ": " + st.title);
+    d.addEventListener("click", function () { go(i); }); dotsEl.appendChild(d);
+  });
+  function drawChart(t) {
+    if (!chartData) { chartData = []; for (var x = 10; x <= 120; x += 5) chartData.push([x, pct(x)]); }
+    var c = document.getElementById("tour-chart"), g = c.getContext("2d"), W = c.width, H = c.height, pad = 30;
+    var maxY = Math.max.apply(null, chartData.map(function (p) { return p[1]; })) * 1.15 || 1;
+    function X(v) { return pad + (v - 10) / 110 * (W - pad - 10); }
+    function Y(v) { return H - pad - v / maxY * (H - pad - 12); }
+    g.clearRect(0, 0, W, H);
+    g.strokeStyle = "#24304A"; g.lineWidth = 1; g.beginPath(); g.moveTo(pad, H - pad); g.lineTo(W - 10, H - pad); g.stroke();
+    g.fillStyle = "#97A3BF"; g.font = "12px Schibsted Grotesk, system-ui, sans-serif"; g.textAlign = "center";
+    [10, 30, 60, 90, 120].forEach(function (v) { g.fillText(v, X(v), H - pad + 16); });
+    g.save(); g.strokeStyle = "#FFD84A"; g.setLineDash([4, 4]); g.beginPath(); g.moveTo(X(30), 8); g.lineTo(X(30), H - pad); g.stroke(); g.restore();
+    g.fillStyle = "#FFD84A"; g.textAlign = "left"; g.fillText("fixed at 30", X(30) + 6, 30);
+    g.strokeStyle = "#5EE38C"; g.lineWidth = 2.5; g.beginPath();
+    chartData.forEach(function (p, i) { if (i) g.lineTo(X(p[0]), Y(p[1])); else g.moveTo(X(p[0]), Y(p[1])); }); g.stroke();
+    var cur = pct(t); g.fillStyle = "#E8ECF5"; g.beginPath(); g.arc(X(t), Y(cur), 5, 0, Math.PI * 2); g.fill();
+    g.textAlign = "left"; g.fillStyle = "#97A3BF"; g.fillText("uptake %", pad, 14);
+  }
+  function tourRender() {
+    var st = STEPS[step], t = st.fixed ? 30 : (st.slider ? tourT : 30);
+    render(tc, st.view, t);
+    document.getElementById("tour-count").textContent = "Step " + (step + 1) + " of " + STEPS.length;
+    document.getElementById("tour-title").textContent = st.title;
+    document.getElementById("tour-desc").textContent = st.desc;
+    document.getElementById("tour-chip").textContent = st.chip;
+    var sv = st.stat(t); document.getElementById("tour-val").textContent = sv.v; document.getElementById("tour-lab").textContent = sv.l;
+    document.querySelector(".tour-stat").hidden = sv.v === "";
+    document.getElementById("tour-slider").hidden = !st.slider;
+    document.getElementById("tour-chart-wrap").hidden = !st.chart;
+    if (st.chart) drawChart(t);
+    var note = "";
+    if (st.slider) note = t < 22 ? "Too low: background noise is being counted as signal." : (t > 45 ? "Too high: real signal is being lost." : "In this range real signal is kept and background is dropped.");
+    document.getElementById("tour-note").textContent = note;
+    mapEl.hidden = !!(st.slider || st.chart);
+    Array.prototype.forEach.call(mapEl.children, function (li, i) { li.className = i === step ? "now" : (i < step ? "done" : ""); });
+    document.getElementById("tour-back").disabled = step === 0;
+    var nx = document.getElementById("tour-next"); nx.textContent = step === STEPS.length - 1 ? "Start over" : "Next step";
+    if (step > 0) { nx.classList.remove("pulse"); document.getElementById("tour-guide").hidden = true; }
+    Array.prototype.forEach.call(dotsEl.children, function (d, i) { d.setAttribute("aria-current", i === step ? "step" : "false"); d.classList.toggle("done", i < step); });
+  }
+  window.tourRender = tourRender;
+  function go(i) { step = Math.max(0, Math.min(STEPS.length - 1, i)); tourRender(); }
+  document.getElementById("tour-next").addEventListener("click", function () { go(step === STEPS.length - 1 ? 0 : step + 1); });
+  document.getElementById("tour-back").addEventListener("click", function () { go(step - 1); });
+  document.getElementById("tour-thr").addEventListener("input", function (e) { tourT = +e.target.value; document.getElementById("tour-thr-out").textContent = tourT; tourRender(); });
+
   refreshAll();   // simulated image first, so the page is never empty
 
   // ---- try to swap in the real sample ----
