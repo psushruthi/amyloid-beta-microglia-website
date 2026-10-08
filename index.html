@@ -243,6 +243,84 @@
   .chips li { border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; font-size: 14px; color: var(--text); background: var(--panel); }
   .approach { margin-top: 28px; padding: 18px 20px; border-left: 3px solid var(--dapi); background: var(--panel); border-radius: 0 8px 8px 0; color: #CDD4E4; font-size: 15.5px; }
 
+  /* hint */
+  .tryit { margin: 0 0 12px; font-size: 13px; color: var(--overlap); display: flex; align-items: center; gap: 8px; }
+  .tryit::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--overlap); box-shadow: 0 0 0 0 rgba(255,216,74,.6); animation: ping 1.8s ease-out 3; }
+  @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(255,216,74,.6); } 100% { box-shadow: 0 0 0 10px rgba(255,216,74,0); } }
+  @media (prefers-reduced-motion: reduce) { .tryit::before { animation: none; } }
+
+  /* problem visual */
+  .vs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .vs { grid-template-columns: 1fr; } }
+  .vs-card { margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
+  .vs-card.good { border-color: #2C5A43; }
+  .vs-card svg { width: 100%; height: auto; display: block; margin-bottom: 14px; }
+  .vs-card figcaption { display: grid; gap: 6px; font-size: 15px; color: #CDD4E4; }
+  .vs-card figcaption b { font-size: 17px; color: var(--text); margin-bottom: 4px; }
+  .vs-card figcaption span { padding-left: 18px; position: relative; }
+  .vs-card figcaption span::before { content: ""; position: absolute; left: 2px; top: .55em; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--muted); }
+  .vs-card.good figcaption span::before { background: var(--abeta); border-color: var(--abeta); }
+  .vs svg .tiles rect { fill: #1B2540; stroke: var(--line); }
+  .vs svg .tiles .d { fill: var(--dapi); } .vs svg .tiles .g { fill: var(--abeta); } .vs svg .tiles .r { fill: var(--iba1); }
+  .vs svg .person circle, .vs svg .person path { fill: #3A4766; }
+  .vs svg .clock circle { fill: none; stroke: var(--muted); stroke-width: 2; } .vs svg .clock path { fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; }
+  .vs svg .answers rect { fill: #2A1D27; stroke: var(--iba1); stroke-opacity: .5; }
+  .vs svg text { fill: var(--text); font: 600 15px "Schibsted Grotesk", system-ui, sans-serif; text-anchor: middle; }
+  .vs svg .folder path { fill: #1B2540; stroke: var(--dapi); stroke-width: 1.5; }
+  .vs svg .folder text { font-size: 12px; fill: var(--muted); font-weight: 500; }
+  .vs svg .flow { stroke: var(--muted); stroke-width: 2; fill: none; } .vs svg .flow-head { stroke: var(--muted); stroke-width: 2; fill: none; stroke-linecap: round; }
+  .vs svg .engine rect { fill: #1B2540; stroke: var(--overlap); stroke-width: 1.5; } .vs svg .engine path { stroke: var(--overlap); stroke-width: 3; stroke-linecap: round; }
+  .vs svg .table rect { fill: #14261E; stroke: var(--abeta); stroke-width: 1.5; } .vs svg .table path { stroke: var(--abeta); stroke-opacity: .5; }
+  .vs svg .same text { font-size: 12px; fill: var(--abeta); text-anchor: end; }
+
+  /* science story */
+  .story { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; counter-reset: st; }
+  @media (max-width: 760px) { .story { grid-template-columns: 1fr; } }
+  .story li { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; counter-increment: st; }
+  .story svg { width: 100%; height: auto; display: block; background: #05080F; border-radius: 8px; margin-bottom: 12px; }
+  .story h3 { margin: 0 0 4px; font-size: 16px; font-weight: 600; }
+  .story h3::before { content: counter(st) ". "; color: var(--muted); }
+  .story p { margin: 0; font-size: 14.5px; color: var(--muted); }
+  .story .branches path { fill: none; stroke: var(--iba1); stroke-width: 4; stroke-linecap: round; opacity: .85; }
+  .story .soma { fill: var(--iba1); fill-opacity: .55; stroke: var(--iba1); stroke-width: 2; }
+  .story .nuc { fill: var(--dapi); }
+  .story .clump circle { fill: var(--abeta); filter: drop-shadow(0 0 4px rgba(94,227,140,.6)); }
+  .story .inside circle { fill: var(--overlap); filter: drop-shadow(0 0 4px rgba(255,216,74,.7)); }
+  .story .reach { fill: none; stroke: var(--iba1); stroke-width: 4; stroke-linecap: round; opacity: .85; }
+  .story .lbl { fill: var(--muted); font: 500 13px "Schibsted Grotesk", system-ui, sans-serif; text-anchor: middle; }
+  .takeaway { margin: 22px 0 0; padding: 14px 18px; border-left: 3px solid var(--overlap); background: var(--panel); border-radius: 0 8px 8px 0; color: #CDD4E4; }
+  .takeaway strong { color: var(--text); }
+  #why .stains { margin-top: 24px; }
+
+  /* pipeline stages */
+  .stages { list-style: none; margin: 0 0 36px; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; counter-reset: sg; }
+  @media (max-width: 900px) { .stages { grid-template-columns: repeat(2, 1fr); } }
+  .stages li { counter-increment: sg; position: relative; }
+  .stages canvas, .stages .zoom { width: 100%; aspect-ratio: 1; border-radius: 8px; display: block; background: #000; border: 1px solid var(--line); }
+  .stages .zoom { position: relative; overflow: hidden; }
+  .stages .zoom canvas { position: absolute; width: 220%; height: 220%; left: -60%; top: -60%; aspect-ratio: auto; border: 0; border-radius: 0; }
+  .stages li::before { content: counter(sg); position: absolute; top: 8px; left: 8px; z-index: 2; width: 24px; height: 24px; border-radius: 50%; background: rgba(12,18,32,.85); border: 1px solid var(--line); color: var(--text); font-size: 13px; display: grid; place-items: center; }
+  .stages li:not(:last-child)::after { content: ""; position: absolute; top: calc(50% - 40px); right: -12px; width: 10px; height: 10px; border-top: 2px solid var(--muted); border-right: 2px solid var(--muted); transform: rotate(45deg); }
+  @media (max-width: 900px) { .stages li::after { display: none; } }
+  .stages h3 { margin: 10px 0 2px; font-size: 15.5px; font-weight: 600; }
+  .stages p { margin: 0; font-size: 14px; color: var(--muted); }
+  .flowline { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; counter-reset: fl; }
+  .flowline li { counter-increment: fl; display: flex; align-items: center; gap: 8px; font-size: 14px; padding: 7px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); }
+  .flowline li::before { content: counter(fl); color: var(--muted); font-size: 12px; }
+
+  /* skill cards */
+  .skill-cards { list-style: none; margin: 0 0 32px; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+  .skill-cards li { grid-column: span 2; }
+  .skill-cards li:nth-child(n+4) { grid-column: span 3; }
+  @media (max-width: 760px) { .skill-cards { grid-template-columns: 1fr; } .skill-cards li, .skill-cards li:nth-child(n+4) { grid-column: auto; } }
+  .skill-cards li { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
+  .skill-cards svg { width: 26px; height: 26px; fill: none; stroke: var(--dapi); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 10px; }
+  .skill-cards li:nth-child(2) svg { stroke: var(--abeta); } .skill-cards li:nth-child(3) svg { stroke: var(--overlap); } .skill-cards li:nth-child(4) svg { stroke: var(--iba1); }
+  .skill-cards h3 { margin: 0 0 4px; font-size: 15.5px; font-weight: 600; }
+  .skill-cards p { margin: 0; font-size: 14px; color: var(--muted); }
+  #skills .tools { grid-template-columns: repeat(3, 1fr); display: grid; gap: 24px; }
+  @media (max-width: 820px) { #skills .tools { grid-template-columns: 1fr; } }
+
   /* footer */
   footer { border-top: 1px solid var(--line); padding: 56px 0 64px; color: var(--muted); font-size: 15px; background: linear-gradient(180deg, var(--ink), #0A0F1B); }
   footer .wrap { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: start; }
@@ -268,6 +346,18 @@
   .socials li:nth-child(4) svg { stroke: var(--overlap); }
   .project-links { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 18px; font-size: 14.5px; }
 </style>
+<!-- Private visitor counts (GoatCounter). Only you can see the stats.
+     1. Sign up free at https://www.goatcounter.com and pick a code, e.g. "spanakan".
+     2. Put that code between the quotes below and push. Leave it empty to turn counting off. -->
+<script>
+  var GOATCOUNTER_CODE = "";
+  if (GOATCOUNTER_CODE) {
+    var gc = document.createElement("script");
+    gc.async = true; gc.src = "https://gc.zgo.at/count.js";
+    gc.setAttribute("data-goatcounter", "https://" + GOATCOUNTER_CODE + ".goatcounter.com/count");
+    document.head.appendChild(gc);
+  }
+</script>
 </head>
 <body>
 
@@ -290,7 +380,7 @@
     <div>
       <p class="kicker">Image analysis pipeline for <i>Alzheimer's drug research</i></p>
       <h1>Measuring how brain immune cells clear Alzheimer's protein</h1>
-      <p class="lede">Researchers are testing whether a potential Alzheimer's drug helps the brain's immune cells clear a harmful protein. Answering that question means measuring hundreds of microscope images, and doing it manually is slow and inconsistent. This pipeline measures every image the same way, automatically, and records how each result was produced, so anyone on the team can run it without writing code.</p>
+      <p class="lede">Researchers are testing whether a potential Alzheimer's drug helps the brain's immune cells clear a harmful protein. This pipeline measures hundreds of microscope images automatically and the same way every time, so the answer is fast, reliable and repeatable.</p>
       <div class="actions">
         <a class="btn primary" href="#pipeline">See how it works</a>
         <a class="btn" href="mailto:spanakan@iu.edu?subject=Access%20request%3A%20amyloid-beta-microglia%20pipeline">Request code access</a>
@@ -305,6 +395,7 @@
         </div>
         <div class="side">
           <div>
+            <p class="tryit">Try it: pick a view or drag the slider</p>
             <h3 id="view-label">What you're looking at</h3>
             <div class="views" role="group" aria-labelledby="view-label">
               <button data-view="dapi"><span class="sw dapi"></span>Nuclei (DAPI)</button>
@@ -335,33 +426,40 @@
     <div class="wrap split">
       <header>
         <h2>The problem</h2>
-        <p>One research question, hundreds of images, and every one has to be measured the same way.</p>
+        <p>Hundreds of images per experiment, and every one has to be measured the same way.</p>
       </header>
-      <div>
-        <div class="prose problem-intro">
-          <p>These experiments test whether a potential drug helps brain immune cells take in more of the protein linked to Alzheimer's disease. Cells are treated, exposed to the protein, stained and captured under a microscope. Each experiment produces hundreds of images, and every one needs to be measured consistently, quickly and in a way that can be checked and repeated.</p>
-        </div>
-        <div class="compare">
-          <div class="before">
-            <h3>Before</h3>
-            <ul>
-              <li>Manual, image-by-image analysis</li>
-              <li>Measurement steps could vary between people and sessions</li>
-              <li>Settings not stored with the results, so hard to audit or repeat</li>
-              <li>Cell counts done as a separate task</li>
-            </ul>
-          </div>
-          <div class="after">
-            <h3>With the pipeline</h3>
-            <ul>
-              <li>A whole folder of images processed in one run</li>
-              <li>One standard definition applied to every image</li>
-              <li>Settings recorded in every row of results, a built-in audit trail</li>
-              <li>A check image for every number, for quality review</li>
-              <li>Cell counts produced in the same run</li>
-            </ul>
-          </div>
-        </div>
+      <div class="vs">
+        <figure class="vs-card">
+          <svg viewBox="0 0 320 170" role="img" aria-labelledby="vs1">
+            <title id="vs1">Manual analysis: a person measures a pile of images one by one and gets different answers</title>
+            <g class="tiles">
+              <rect x="20" y="40" width="58" height="58" rx="6"/><rect x="30" y="30" width="58" height="58" rx="6"/><rect x="40" y="20" width="58" height="58" rx="6"/>
+              <circle cx="58" cy="44" r="4" class="d"/><circle cx="74" cy="56" r="5" class="g"/><circle cx="62" cy="64" r="3" class="r"/>
+            </g>
+            <g class="person" transform="translate(140 36)">
+              <circle cx="20" cy="14" r="12"/><path d="M0 70c0-18 9-30 20-30s20 12 20 30z"/>
+            </g>
+            <g class="clock" transform="translate(150 125)"><circle cx="10" cy="10" r="12"/><path d="M10 3v7l5 4"/></g>
+            <g class="answers">
+              <rect x="222" y="22" width="78" height="30" rx="15"/><text x="261" y="42">12%</text>
+              <rect x="222" y="62" width="78" height="30" rx="15"/><text x="261" y="82">17%</text>
+              <rect x="222" y="102" width="78" height="30" rx="15"/><text x="261" y="122">9%</text>
+            </g>
+          </svg>
+          <figcaption><b>Manual analysis</b><span>Slow, one image at a time</span><span>Different people, different answers</span><span>Settings rarely written down</span></figcaption>
+        </figure>
+        <figure class="vs-card good">
+          <svg viewBox="0 0 320 170" role="img" aria-labelledby="vs2">
+            <title id="vs2">With the pipeline: a whole folder goes in and one consistent results table comes out</title>
+            <g class="folder"><path d="M14 50h34l8 10h50v66H14z"/><text x="60" y="100">All images</text></g>
+            <path class="flow" d="M114 93h34"/><path class="flow-head" d="M144 86l8 7-8 7"/>
+            <g class="engine"><rect x="156" y="62" width="62" height="62" rx="12"/><path d="M172 94l10 10 20-22" fill="none"/></g>
+            <path class="flow" d="M222 93h22"/><path class="flow-head" d="M240 86l8 7-8 7"/>
+            <g class="table"><rect x="252" y="50" width="56" height="86" rx="6"/><path d="M252 70h56M252 90h56M252 110h56M276 50v86"/></g>
+            <g class="same"><text x="280" y="160">12% every run</text></g>
+          </svg>
+          <figcaption><b>With the pipeline</b><span>A whole folder in one run</span><span>Same rule, same answer, every time</span><span>Every setting saved with the results</span></figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -370,27 +468,80 @@
     <div class="wrap split">
       <header>
         <h2>Why it matters</h2>
-        <p>The science, simply.</p>
+        <p>The science in three pictures.</p>
       </header>
       <div>
-        <div class="prose">
-          <p>In Alzheimer's disease, a protein called <strong>amyloid-beta</strong> builds up in the brain. The brain's own immune cells, called <strong>microglia</strong>, can take this protein in and clear it. A treatment that helps them do this better could slow the disease.</p>
-          <p>To test a potential treatment, cells are given the drug, exposed to the protein, then stained and photographed under a microscope. The key measurement is simple: how much of the immune cells' area contains the protein. Comparing treated and untreated cells shows whether the drug is helping.</p>
-          <p>This is the same challenge found in any clinical or research data workflow. A result is only as trustworthy as the way it was measured. If the measurement changes with who does it, or isn't documented, the conclusion can't be trusted or repeated. Standardizing and recording every step is what turns images into usable data.</p>
-        </div>
+        <ol class="story">
+          <li>
+            <svg viewBox="0 0 220 170" role="img" aria-labelledby="st1">
+              <title id="st1">An immune cell with branches, surrounded by clumps of amyloid-beta protein</title>
+              <use href="#cell" x="110" y="85"/>
+              <g class="clump"><circle cx="32" cy="40" r="9"/><circle cx="40" cy="34" r="7"/><circle cx="38" cy="46" r="6"/></g>
+              <g class="clump"><circle cx="186" cy="132" r="10"/><circle cx="196" cy="124" r="7"/></g>
+              <g class="clump"><circle cx="190" cy="36" r="7"/><circle cx="198" cy="42" r="5"/></g>
+              <g class="clump"><circle cx="30" cy="138" r="7"/></g>
+            </svg>
+            <h3>The protein builds up</h3>
+            <p>In Alzheimer's, amyloid-beta (green) forms clumps in the brain.</p>
+          </li>
+          <li>
+            <svg viewBox="0 0 220 170" role="img" aria-labelledby="st2">
+              <title id="st2">The immune cell reaches out and swallows a clump, which now sits inside the cell</title>
+              <use href="#cell" x="110" y="85"/>
+              <g class="inside"><circle cx="100" cy="92" r="6"/></g>
+              <g class="clump"><circle cx="168" cy="40" r="8"/><circle cx="175" cy="46" r="5"/></g>
+              <path class="reach" d="M140 70q16-14 22-26"/>
+            </svg>
+            <h3>Immune cells take it in</h3>
+            <p>Microglia (red) engulf the protein. Inside the cell it shows as yellow.</p>
+          </li>
+          <li>
+            <svg viewBox="0 0 220 170" role="img" aria-labelledby="st3">
+              <title id="st3">Two cells compared: untreated with a little protein inside, and with the drug with more protein inside</title>
+              <g transform="translate(-4 0)">
+                <use href="#cell-sm" x="58" y="78"/>
+                <g class="inside"><circle cx="52" cy="84" r="4"/></g>
+                <text class="lbl" x="58" y="152">Untreated</text>
+              </g>
+              <g transform="translate(4 0)">
+                <use href="#cell-sm" x="162" y="78"/>
+                <g class="inside"><circle cx="152" cy="80" r="5"/><circle cx="168" cy="88" r="5"/><circle cx="158" cy="94" r="4"/><circle cx="170" cy="74" r="3.5"/></g>
+                <text class="lbl" x="162" y="152">With drug</text>
+              </g>
+            </svg>
+            <h3>A drug could boost this</h3>
+            <p>More yellow inside the cell means more protein cleared.</p>
+          </li>
+        </ol>
+        <p class="takeaway">The pipeline measures exactly this: <strong>how much of each immune cell's area holds the protein</strong>, across every image.</p>
+
+        <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+          <defs>
+            <g id="cell">
+              <g fill="none" stroke="#FF5C6C" stroke-width="4" stroke-linecap="round" opacity="0.85">
+                <path d="M0 0c-18-12-34-18-52-34M-30-22c-4-12-2-22 2-30"/>
+                <path d="M0 0c20-10 30-16 46-38M30-20c10-2 20 0 28 6"/>
+                <path d="M0 0c-22 8-40 20-58 40M-36 22c-12 2-22 10-26 18"/>
+                <path d="M0 0c18 14 34 26 44 46M26 22c10 0 20 6 26 14"/>
+              </g>
+              <circle r="26" fill="#B23A4A" stroke="#FF5C6C" stroke-width="2"/>
+              <ellipse cx="6" cy="-6" rx="10" ry="8" fill="#6E9BFF"/>
+            </g>
+            <g id="cell-sm">
+              <g fill="none" stroke="#FF5C6C" stroke-width="4" stroke-linecap="round" opacity="0.85">
+                <path d="M0 0c-14-10-26-14-38-26"/><path d="M0 0c14-8 22-12 34-28"/>
+                <path d="M0 0c-16 6-28 14-40 28"/><path d="M0 0c14 10 24 18 32 32"/>
+              </g>
+              <circle r="26" fill="#B23A4A" stroke="#FF5C6C" stroke-width="2"/>
+              <ellipse cx="8" cy="-8" rx="8" ry="6" fill="#6E9BFF"/>
+            </g>
+          </defs>
+        </svg>
+
         <div class="stains">
-          <div>
-            <h3><span class="sw dapi"></span>Nuclei</h3>
-            <p>Blue stain (DAPI) that marks every cell. Used to count cells.</p>
-          </div>
-          <div>
-            <h3><span class="sw abeta"></span>Amyloid-beta</h3>
-            <p>Green label on the Alzheimer's protein.</p>
-          </div>
-          <div>
-            <h3><span class="sw iba1"></span>Immune cells</h3>
-            <p>Red label (Iba1) that marks microglia and defines their area.</p>
-          </div>
+          <div><h3><span class="sw dapi"></span>Nuclei</h3><p>Blue stain (DAPI). Used to count cells.</p></div>
+          <div><h3><span class="sw abeta"></span>Amyloid-beta</h3><p>Green label on the protein.</p></div>
+          <div><h3><span class="sw iba1"></span>Immune cells</h3><p>Red label (Iba1) on microglia.</p></div>
         </div>
       </div>
     </div>
@@ -400,38 +551,21 @@
     <div class="wrap split">
       <header>
         <h2>How the pipeline works</h2>
-        <p>Three images go in for each field of view. Two standardized measurements come out: how much of the immune cell area contains the protein, and how many cells there are.</p>
+        <p>Four steps, shown on the real sample image.</p>
       </header>
       <div>
-        <div class="lanes" aria-label="Pipeline diagram">
-          <div class="colhead">Image in</div>
-          <div class="colhead">Apply one standard</div>
-          <div class="colhead">Measure</div>
-          <div class="colhead">Result</div>
-
-          <div class="node in" style="--c: var(--dapi)">Nuclei image<small>blue channel</small></div>
-          <div class="node">Brightness at or above 30<small>marks each nucleus</small></div>
-          <div class="node">Split touching cells, drop specks<small>smaller than 20 pixels</small></div>
-          <div class="node out">Cell count<small>plus an outline check image</small></div>
-
-          <div class="node in" style="--c: var(--abeta)">Protein image<small>green channel, amyloid-beta</small></div>
-          <div class="node">Brightness at or above 30<small>marks the protein</small></div>
-          <div class="node join">Compare pixel by pixel<small>Which immune cell pixels also contain protein?</small></div>
-          <div class="node out join">Percent of immune cell area with protein<small>plus a color-coded check map</small></div>
-
-          <div class="node in" style="--c: var(--iba1)">Immune cell image<small>red channel, microglia</small></div>
-          <div class="node">Brightness at or above 30<small>marks the immune cell area</small></div>
-        </div>
+        <ol class="stages">
+          <li><canvas id="st-raw" width="360" height="360" aria-label="Simulated raw image, all three channels"></canvas><h3>Raw image</h3><p>Three color channels, as captured.</p></li>
+          <li><canvas id="st-mask" width="360" height="360" aria-label="Simulated image after applying the threshold"></canvas><h3>Apply one standard</h3><p>A fixed brightness cutoff marks real signal.</p></li>
+          <li><canvas id="st-map" width="360" height="360" aria-label="Simulated check map"></canvas><h3>Measure uptake</h3><p>Yellow: protein inside immune cells.</p></li>
+          <li><div class="zoom"><canvas id="st-count" width="360" height="360" aria-label="Simulated nuclei with outlines, zoomed in"></canvas></div><h3>Count cells</h3><p>Each outlined nucleus is one cell (zoomed in).</p></li>
+        </ol>
 
         <p class="subhead">One run, start to finish</p>
-        <ol class="steps">
-          <li><h3>Choose folders</h3><p>A pop-up window asks where the images are and where to save results. No code editing.</p></li>
-          <li><h3>Match the images</h3><p>The three images of each field of view are paired up automatically by file name.</p></li>
-          <li><h3>Apply one standard</h3><p>A fixed brightness cutoff decides what counts as signal, the same for every image and every run.</p></li>
-          <li><h3>Measure uptake</h3><p>Immune cell pixels that also contain the protein are counted and reported as a percent of the cell area.</p></li>
-          <li><h3>Count cells</h3><p>Touching nuclei are split apart, specks are ignored, and the rest are counted.</p></li>
-          <li><h3>Save everything</h3><p>Results table, pictures, a full log and a visual report land in a new dated folder.</p></li>
+        <ol class="flowline">
+          <li>Choose folders</li><li>Match images</li><li>Apply standard</li><li>Measure uptake</li><li>Count cells</li><li>Save results</li>
         </ol>
+        <p class="note">No code editing: a pop-up window asks where the images are and where to save results.</p>
       </div>
     </div>
   </section>
@@ -445,7 +579,7 @@
       <div class="dash">
         <div class="tile t-csv">
           <h3>Results table</h3>
-          <p>One row per image, ready for statistics in Excel, R or Prism. The settings are saved in every row, so every number can be traced back to how it was made.</p>
+          <p>One row per image, ready for Excel, R or Prism. Settings saved in every row.</p>
           <div class="table-scroll">
             <table>
               <thead>
@@ -481,14 +615,14 @@
           <div class="thumb">
             <div class="zoom"><canvas id="thumb-dapi" width="360" height="360" aria-label="Simulated nuclei with outlines, zoomed in"></canvas></div>
             <div>
-              <p>Each counted nucleus outlined in yellow (zoomed in here). One outline is exactly one counted cell, so the count can be checked at a glance.</p>
+              <p>One yellow outline is one counted cell.</p>
             </div>
           </div>
         </div>
 
         <div class="tile t-report">
           <h3>Visual report</h3>
-          <p>A single web page with one card per image: the check map, the main result and the settings. Easy to review and to share with the team.</p>
+          <p>One card per image, easy to review and share.</p>
           <div class="mini-report" aria-hidden="true">
             <canvas id="thumb-report" width="360" height="360"></canvas>
             <div><b id="report-pct">0%</b><small>abeta_in_iba1_area</small></div>
@@ -497,7 +631,7 @@
 
         <div class="tile t-log">
           <h3>Run log</h3>
-          <p>A text record of the run: folders, settings, image details, results and any skipped files.</p>
+          <p>A full text record of every run.</p>
 <pre class="log">Threshold:  iba1 = 30, abeta = 30, dapi = 30
 DAPI size:  20 - Infinity pixels, watershed on
 Found 24 ch02 (iba1) files.
@@ -517,27 +651,25 @@ Processing: Sample_A_Field1_ch02.tif
         <p>Skills and methods applied in this project.</p>
       </header>
       <div>
-        <div class="skills">
-          <ul class="did">
-            <li><h3>Requirements gathering</h3><p>The research question was translated into a precise, measurable definition with the research team before any code was written.</p></li>
-            <li><h3>Standardized definitions</h3><p>Fixed cutoffs, a minimum size to ignore debris, and rules for touching cells. Each choice is documented with the reason, like a data dictionary.</p></li>
-            <li><h3>Data quality and validation</h3><p>Every number comes with a check image, so results can be reviewed by eye before anyone relies on them.</p></li>
-            <li><h3>Built for non-technical users</h3><p>A folder picker instead of code edits, a step-by-step user guide and a troubleshooting table.</p></li>
-            <li><h3>Reproducibility and audit trail</h3><p>Dated output folders, settings in every results row, a full run log, version control and a run record template.</p></li>
-          </ul>
-          <div class="tools">
-            <div>
-              <h3>Image analysis</h3>
-              <ul class="chips"><li>Fiji / ImageJ</li><li>Thresholding</li><li>Object counting</li><li>Colocalization analysis</li><li>Batch image processing</li></ul>
-            </div>
-            <div>
-              <h3>Programming</h3>
-              <ul class="chips"><li>Python (Jython)</li><li>ImageJ API</li><li>Automated reporting</li><li>HTML and CSS</li></ul>
-            </div>
-            <div>
-              <h3>Data and documentation</h3>
-              <ul class="chips"><li>Data standardization</li><li>CSV data design</li><li>Audit trail</li><li>Git and GitHub</li><li>Technical writing</li><li>GitHub Pages</li></ul>
-            </div>
+        <ul class="skill-cards">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h8M9 4v5l-4 8a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-4-8V4"/></svg><h3>Requirements gathering</h3><p>Research question turned into a measurable definition.</p></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg><h3>Standardized definitions</h3><p>Fixed, documented rules, like a data dictionary.</p></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><h3>Data quality checks</h3><p>A check image for every number.</p></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg><h3>Built for non-coders</h3><p>Folder picker, user guide, troubleshooting.</p></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/><path d="M12 8v4l3 2"/></svg><h3>Audit trail</h3><p>Settings in every row, run logs, version control.</p></li>
+        </ul>
+        <div class="tools">
+          <div>
+            <h3>Image analysis</h3>
+            <ul class="chips"><li>Fiji / ImageJ</li><li>Thresholding</li><li>Object counting</li><li>Colocalization analysis</li><li>Batch image processing</li></ul>
+          </div>
+          <div>
+            <h3>Programming</h3>
+            <ul class="chips"><li>Python (Jython)</li><li>ImageJ API</li><li>Automated reporting</li><li>HTML and CSS</li></ul>
+          </div>
+          <div>
+            <h3>Data and documentation</h3>
+            <ul class="chips"><li>Data standardization</li><li>CSV data design</li><li>Audit trail</li><li>Git and GitHub</li><li>Technical writing</li><li>GitHub Pages</li></ul>
           </div>
         </div>
         <p class="approach">Development approach: problem definition, design decisions, debugging and validation of results were led by the developer, with AI tools used to speed up code writing.</p>
@@ -711,11 +843,16 @@ Processing: Sample_A_Field1_ch02.tif
       else if (view === "abeta") { R = a * 0.2; G = a; B = a * 0.4; }
       else if (view === "iba1") { R = b; G = b * 0.22; B = b * 0.32; }
       else if (view === "merge") { R = b + a * 0.2 + n * 0.3; G = a + b * 0.22 + n * 0.5; B = n + a * 0.4 + b * 0.32; }
+      else if (view === "mask") {
+        if (b >= t) { R = 255; G = 60; B = 80; }
+        if (a >= t) { R = Math.max(R, 60); G = 230; B = Math.max(B, 120); }
+        if (n >= t && b < t && a < t) { R = 90; G = 140; B = 255; }
+      }
       else if (view === "map") {
         var inI = b >= t, inA = a >= t;
         if (inI && inA) { R = 255; G = 255; } else if (inI) { R = 255; } else if (inA) { G = 255; }
       } else if (view === "outline") {
-        R = G = B = n * 0.9;
+        R = G = B = Math.min(255, n * 1.6);
         var L = cc.lab[i];
         if (L && cc.keep[L]) {
           var x = i % N, y = (i - x) / N, edge = false;
@@ -757,6 +894,10 @@ Processing: Sample_A_Field1_ch02.tif
     render(document.getElementById("thumb-map"), "map", 30);
     render(document.getElementById("thumb-dapi"), "outline", 30);
     render(document.getElementById("thumb-report"), "map", 30);
+    render(document.getElementById("st-raw"), "merge", 30);
+    render(document.getElementById("st-mask"), "mask", 30);
+    render(document.getElementById("st-map"), "map", 30);
+    render(document.getElementById("st-count"), "outline", 30);
     document.getElementById("report-pct").textContent = pct(30).toFixed(1) + "%";
   }
   refreshAll();   // simulated image first, so the page is never empty
