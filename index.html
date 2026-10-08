@@ -323,6 +323,11 @@
   .buddy-card[hidden] { display: none; }
   .buddy-mini { position: fixed; z-index: 52; display: flex; gap: 6px; padding: 6px; background: rgba(19,27,46,.92); border: 1px solid var(--overlap); border-radius: 12px; box-shadow: 0 6px 24px rgba(0,0,0,.45); }
   .buddy-mini[hidden] { display: none; }
+  .buddy-mouse { touch-action: none; cursor: grab; }
+  .buddy-say, .buddy-mini, .buddy-card { cursor: grab; touch-action: none; }
+  .buddy-card input, .buddy-card textarea { cursor: text; touch-action: auto; }
+  .buddy-card button, .buddy-mini button { cursor: pointer; }
+  body.buddy-dragging, body.buddy-dragging * { cursor: grabbing !important; user-select: none; }
   .buddy-say { position: fixed; z-index: 52; margin: 0; max-width: 260px; background: var(--overlap); color: #1A1400; font-weight: 600; font-size: 14px; line-height: 1.35; padding: 9px 12px; border-radius: 12px; box-shadow: 0 6px 22px rgba(0,0,0,.45); }
   .buddy-say[hidden] { display: none; }
   .buddy-say.pop { animation: pop .35s ease-out, flash 1.4s ease-in-out .35s infinite; }
@@ -764,7 +769,7 @@
   <circle class="eye" cx="11.5" cy="17" r="2" fill="#1A1400"/>
   <circle cx="5.5" cy="21" r="2.4" fill="#FF5C8A"/>
   <path d="M8 22l-6 -1M8 23.5l-6 2M9 25l-5 4" stroke="#B8A27A" stroke-width="0.9" stroke-linecap="round"/>
-</svg><p class="bubble">Click Next!</p></div>
+</svg><p class="bubble">Click Next step!</p></div>
               <button class="tbtn" id="tour-back" type="button">Back</button>
               <button class="tbtn primary pulse" id="tour-next" type="button">Next step</button>
             </div>
@@ -976,7 +981,7 @@ Processing: Sample_A_Field1_ch02.tif
     <button type="button" class="tbtn primary pulse" id="buddy-next">Next</button>
     <button type="button" class="tbtn" id="buddy-end">End tour</button>
   </div>
-  <button type="button" class="buddy-mouse" id="buddy-mouse" aria-label="Tour guide mouse. Click to start or stop the tour" title="Click me to start or stop the tour"><svg class="mouse" viewBox="0 0 64 44" aria-hidden="true">
+  <button type="button" class="buddy-mouse" id="buddy-mouse" aria-label="Tour guide mouse. Click to start or stop the tour" title="Drag me anywhere. Click me to start or stop the tour"><svg class="mouse" viewBox="0 0 64 44" aria-hidden="true">
   <g class="legs" fill="#FF8FB1">
     <rect class="leg l1" x="20" y="30" width="3.6" height="10" rx="1.8"/>
     <rect class="leg l2" x="26" y="31" width="3.6" height="9" rx="1.8"/>
@@ -1388,9 +1393,8 @@ Processing: Sample_A_Field1_ch02.tif
     function helperDone() {
       if (mode !== "tour" || helperState.stop !== idx || helperState.done) return;
       helperState.done = true;
-      say("Great job! Let's go to the next part.");
-      var id = runId;
-      setTimeout(function () { if (id === runId && mode === "tour") goTo(idx + 1); }, reduce ? 600 : 1800);
+      say("Great job! Take your time, then click Next when you're ready.");
+      nextBtn.classList.remove("pulse"); void nextBtn.offsetWidth; nextBtn.classList.add("pulse");
     }
     // hero viewer: done after trying 4 views, or after using the slider
     document.querySelectorAll(".views button").forEach(function (b) {
@@ -1415,12 +1419,16 @@ Processing: Sample_A_Field1_ch02.tif
     function showForm() {
       hush(); mini.hidden = true; form.hidden = false;
       form.classList.remove("pop"); void form.offsetWidth; form.classList.add("pop");
+      placeForm();
+      setTimeout(function () { document.getElementById("bf-name").focus({ preventScroll: true }); }, 400);
+    }
+    function placeForm() {
+      if (form.hidden) return;
       var w = form.offsetWidth || 320, h = form.offsetHeight || 300;
       var x = mx + 72, y = my - h / 2;
       if (x + w > vw() - 12) x = Math.max(12, mx - w - 10);
       if (vw() < 700) { x = 16; y = vh() - h - 80; }
       form.style.left = x + "px"; form.style.top = Math.max(70, Math.min(y, vh() - h - 12)) + "px";
-      setTimeout(function () { document.getElementById("bf-name").focus({ preventScroll: true }); }, 400);
     }
     var OWNER_EMAIL = "spanakan@iu.edu";
     form.addEventListener("submit", function (e) {
@@ -1471,7 +1479,7 @@ Processing: Sample_A_Field1_ch02.tif
       else if (i === 0) { x = r.left + 8; y = r.bottom + shift + 14; }
       else { x = hdr.left; y = hdr.bottom + shift + 28; }
       y = Math.max(80, Math.min(y, vh() - 80));
-      tourScrolling = true;
+      tourScrolling = true; runStarted = Date.now();
       var down = top > window.pageYOffset + 40;
       m.classList.add("running"); m.classList.toggle("run-down", down);
       m.classList.toggle("face-right", !down && x > mx + 4);
@@ -1519,7 +1527,7 @@ Processing: Sample_A_Field1_ch02.tif
         if ((arrived && same >= 2) || (Date.now() - t0 > 400 && same >= 8) || Date.now() - t0 > 2500) cb(); else requestAnimationFrame(tick);
       })();
     }
-    var tourScrolling = false;
+    var tourScrolling = false, runStarted = 0;
     go.addEventListener("click", function () { goTo(0); });
     nextBtn.addEventListener("click", function () { if (idx >= STOPS.length - 1) stopTour(); else goTo(idx + 1); });
     window.addEventListener("resize", function () { placeSay(); });
@@ -1528,16 +1536,77 @@ Processing: Sample_A_Field1_ch02.tif
     ["wheel", "touchstart", "keydown"].forEach(function (ev) {
       window.addEventListener(ev, function (e) {
         if (mode !== "tour" || !tourScrolling) return;
-        if (e.target && e.target.closest && (e.target.closest(".buddy") || e.target.closest(".viewer") || e.target.closest(".tour"))) return;
-        stopTour();
+        if (Date.now() - runStarted < 350) return;   // ignore leftover trackpad momentum from before Next
+        if (e.target && e.target.closest && e.target.closest(".buddy")) return;
+        cancelRun();
       }, { passive: true });
     });
     stop.addEventListener("click", toCorner);
     m.addEventListener("click", function () {
+      if (justDragged) { justDragged = false; return; }
       if (mode === "tour") { stopTour(); return; }
       if (mode === "corner") intro();
     });
-    window.addEventListener("resize", function () { if (mode === "corner") toCorner(); else if (!card.hidden) placeCard(); if (!mini.hidden) placeMini(); });
+
+    // ---- cancel a run when the visitor takes over ----
+    function cancelRun() {
+      runId++; tourScrolling = false;
+      m.classList.remove("running", "run-down", "face-right"); m.style.transition = "";
+      syncToScroll(true);
+    }
+
+    // ---- keep the tour in sync with where the visitor is on the page ----
+    function stopIndexInView() {
+      var best = 0, line = vh() * 0.45;
+      STOPS.forEach(function (st, i) {
+        var el = document.querySelector(st.el); if (!el) return;
+        var sec = el.closest("section, header") || el;
+        if (sec.getBoundingClientRect().top <= line) best = i;
+      });
+      if (window.innerHeight + window.pageYOffset >= document.documentElement.scrollHeight - 4) best = STOPS.length - 1;
+      return best;
+    }
+    function syncToScroll(force) {
+      if (mode !== "tour" || tourScrolling) return;
+      var i = stopIndexInView();
+      if (i === idx && !force) return;
+      idx = i; form.hidden = true;
+      arrived(i);
+    }
+    var syncT = null;
+    window.addEventListener("scroll", function () {
+      if (mode !== "tour" || tourScrolling) return;
+      clearTimeout(syncT); syncT = setTimeout(function () { syncToScroll(false); }, 220);
+    }, { passive: true });
+
+    // ---- drag the guide (mouse, bubble and buttons move together) ----
+    var dragging = false, justDragged = false, dStart = null;
+    function relayout() { placeMini(); placeSay(); placeForm(); if (!card.hidden) placeCard(); }
+    [m, sayEl, mini, card, form].forEach(function (el) {
+      el.addEventListener("pointerdown", function (e) {
+        if (e.button !== 0) return;
+        if (el !== m && e.target.closest("button, input, textarea, a, label")) return;
+        if (tourScrolling) return;
+        dStart = { x: e.clientX, y: e.clientY, mx: mx, my: my, id: e.pointerId, el: el };
+      });
+    });
+    window.addEventListener("pointermove", function (e) {
+      if (!dStart || e.pointerId !== dStart.id) return;
+      var dx = e.clientX - dStart.x, dy = e.clientY - dStart.y;
+      if (!dragging && Math.hypot(dx, dy) < 6) return;
+      if (!dragging) { dragging = true; document.body.classList.add("buddy-dragging"); m.style.transition = "none"; card.style.transition = "none"; }
+      mx = Math.max(4, Math.min(vw() - 68, dStart.mx + dx));
+      my = Math.max(64, Math.min(vh() - 48, dStart.my + dy));
+      m.style.left = mx + "px"; m.style.top = my + "px";
+      relayout();
+    });
+    window.addEventListener("pointerup", function (e) {
+      if (!dStart || e.pointerId !== dStart.id) return;
+      if (dragging) { justDragged = true; setTimeout(function () { justDragged = false; }, 50); }
+      dragging = false; dStart = null; document.body.classList.remove("buddy-dragging");
+      m.style.transition = ""; card.style.transition = "";
+    });
+    window.addEventListener("resize", function () { if (mode === "corner") toCorner(); else relayout(); });
     // start: hidden off-screen, then pop in from the side
     m.style.left = (vw() + 20) + "px"; m.style.top = (vh() - 80) + "px"; mx = vw() + 20; my = vh() - 80;
     setTimeout(intro, reduce ? 0 : 1400);
