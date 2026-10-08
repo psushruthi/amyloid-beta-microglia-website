@@ -243,30 +243,88 @@
   .chips li { border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; font-size: 14px; color: var(--text); background: var(--panel); }
   .approach { margin-top: 28px; padding: 18px 20px; border-left: 3px solid var(--dapi); background: var(--panel); border-radius: 0 8px 8px 0; color: #CDD4E4; font-size: 15.5px; }
 
-  /* owl guide */
+  /* mouse guide */
   .guide { display: flex; align-items: center; gap: 10px; margin: 0 0 12px; }
-  .guide .owl { width: 46px; height: 50px; flex: none; animation: bob 2.4s ease-in-out infinite; transform-origin: 50% 100%; }
-  .guide .owl .eyes { animation: blink 4s infinite; transform-origin: 24px 22px; }
-  .guide.happy .owl { animation: hop .5s ease-out 2; }
+  .guide .mouse { width: 46px; height: 50px; flex: none; animation: bob 2.4s ease-in-out infinite; transform-origin: 50% 100%; }
+  .guide .mouse .eyes { animation: blink 4s infinite; transform-origin: 24px 22px; }
+  .guide.happy .mouse { animation: hop .5s ease-out 2; }
   .bubble { position: relative; margin: 0; background: var(--overlap); color: #1A1400; font-size: 13.5px; font-weight: 600; line-height: 1.3; padding: 8px 11px; border-radius: 10px; }
   .bubble::before { content: ""; position: absolute; left: -6px; top: 50%; margin-top: -6px; border: 6px solid transparent; border-left: 0; border-right-color: var(--overlap); }
   .guide-sm { margin: 0 4px 0 0; }
-  .guide-sm .owl { width: 36px; height: 40px; }
+  .guide-sm .mouse { width: 36px; height: 40px; }
   .guide-sm .bubble { font-size: 12.5px; padding: 6px 9px; white-space: nowrap; }
   .guide[hidden] { display: none; }
   .guide { position: relative; }
-  .guide .owl { filter: drop-shadow(0 0 6px rgba(255,194,61,.9)) drop-shadow(0 0 14px rgba(255,194,61,.55)); }
-  .guide:not(.happy)::before { content: ""; position: absolute; left: 23px; top: 25px; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; box-shadow: 0 0 0 0 rgba(255,194,61,.7); animation: halo 1.4s ease-out infinite; pointer-events: none; }
+  .guide .mouse { filter: drop-shadow(0 0 6px rgba(255,194,61,.9)) drop-shadow(0 0 14px rgba(255,194,61,.55)); }
+  .guide:not(.happy)::before { content: ""; position: absolute; left: 23px; top: 25px; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%; border: 2px solid rgba(255,216,74,.9); animation: ring 1.4s ease-out infinite; pointer-events: none; }
   .guide-sm:not(.happy)::before { left: 18px; top: 20px; }
   .guide:not(.happy) .bubble { animation: flash 1.4s ease-in-out infinite; }
+  @keyframes ring { 0% { transform: scale(.4); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
   @keyframes halo { 0% { box-shadow: 0 0 0 0 rgba(255,194,61,.75); } 100% { box-shadow: 0 0 0 34px rgba(255,194,61,0); } }
   @keyframes flash { 0%, 100% { background: var(--overlap); box-shadow: 0 0 0 0 rgba(255,216,74,0); } 50% { background: #FFF6C9; box-shadow: 0 0 18px 2px rgba(255,216,74,.65); } }
   @media (prefers-reduced-motion: reduce) { .guide::before, .guide .bubble { animation: none !important; } }
   @keyframes bob { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-4px) rotate(-3deg); } }
   @keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.1); } }
   @keyframes hop { 0% { transform: translateY(0); } 40% { transform: translateY(-10px) rotate(6deg); } 100% { transform: translateY(0); } }
-  @media (prefers-reduced-motion: reduce) { .guide .owl, .guide .owl .eyes { animation: none !important; } }
+  @media (prefers-reduced-motion: reduce) { .guide .mouse, .guide .mouse .eyes { animation: none !important; } }
   @media (max-width: 640px) { .tour-btns { flex-wrap: wrap; } .guide-sm { width: 100%; } }
+
+  /* running mouse */
+  .viewer { position: relative; }
+  .runner { position: absolute; left: 0; top: 0; z-index: 6; width: 48px; height: 30px; pointer-events: none; transition: transform .7s cubic-bezier(.45,0,.25,1); }
+  .runner .mouse { width: 48px; height: 30px; display: block; filter: drop-shadow(0 0 5px rgba(255,216,74,.95)) drop-shadow(0 0 12px rgba(255,143,177,.7)); }
+  .runner::before { content: ""; position: absolute; left: 24px; top: 16px; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%; border: 2px solid rgba(255,216,74,.9); animation: ring 1.4s ease-out infinite; }
+  .runner.running .mouse { animation: scurry .16s ease-in-out infinite alternate; }
+  .runner.running .foot.f1 { animation: step .12s infinite alternate; }
+  .runner.running .foot.f2 { animation: step .12s infinite alternate-reverse; }
+  .runner:not(.running) .tail { animation: wag 1.2s ease-in-out infinite; transform-origin: 50px 27px; }
+  @keyframes scurry { from { transform: translateY(0); } to { transform: translateY(-3px); } }
+  @keyframes step { from { transform: translateX(-2px); } to { transform: translateX(2px); } }
+  @keyframes wag { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(14deg); } }
+  .target-glow { position: relative; color: var(--text) !important; background: rgba(255,216,74,.10) !important; box-shadow: 0 0 0 2px var(--overlap), 0 0 18px rgba(255,216,74,.55); border-radius: 8px; animation: tglow 1.3s ease-in-out infinite; }
+  @keyframes tglow { 0%, 100% { box-shadow: 0 0 0 2px var(--overlap), 0 0 6px rgba(255,216,74,.35); } 50% { box-shadow: 0 0 0 2px var(--overlap), 0 0 22px rgba(255,216,74,.8); } }
+  .hero-guide .bubble { width: 100%; }
+  .hero-guide::before { display: none !important; }
+  .guide-sm .mouse { width: 46px !important; height: 29px !important; }
+  .guide-sm::before { left: 22px !important; top: 15px !important; }
+  .hero-guide .bubble::before { display: none; }
+  .bubble.pop { animation: pop .35s ease-out, flash 1.4s ease-in-out .35s infinite; }
+  @keyframes pop { 0% { transform: scale(.92); } 60% { transform: scale(1.04); } 100% { transform: scale(1); } }
+  .slider { padding: 8px; margin: 0 -8px; border-radius: 8px; transition: opacity .2s; }
+  .slider.locked { opacity: .5; }
+  .slider.locked input { cursor: not-allowed; }
+  .lock-note { margin: 6px 0 0; font-size: 12.5px; color: var(--muted); }
+  .slider:not(.locked) .lock-note { color: var(--overlap); }
+  @media (prefers-reduced-motion: reduce) { .runner, .runner *, .runner::before, .target-glow, .bubble.pop { animation: none !important; transition: none !important; } }
+
+  /* page tour companion */
+  .buddy { position: fixed; left: 0; top: 0; z-index: 50; width: 0; height: 0; }
+  .buddy-mouse { all: unset; cursor: pointer; position: fixed; z-index: 51; width: 64px; height: 44px; transition: left .95s cubic-bezier(.45,0,.25,1), top .95s cubic-bezier(.45,0,.25,1), transform .3s; }
+  .buddy-mouse .mouse { width: 64px; height: 44px; display: block; filter: drop-shadow(0 0 6px rgba(255,216,74,.95)) drop-shadow(0 0 14px rgba(255,143,177,.7)); }
+  .buddy-mouse.face-right .mouse { transform: scaleX(-1); }
+  .buddy-mouse::before { content: ""; position: absolute; left: 32px; top: 22px; width: 70px; height: 70px; margin: -35px 0 0 -35px; border-radius: 50%; border: 2px solid rgba(255,216,74,.9); animation: ring 1.5s ease-out infinite; pointer-events: none; }
+  .buddy-mouse.small { transform: scale(.7); }
+  .buddy-mouse.small::before { animation-duration: 2.4s; }
+  .buddy-mouse:focus-visible { outline: 2px solid var(--overlap); outline-offset: 4px; border-radius: 10px; }
+  .buddy-mouse.hidden-off { left: calc(100vw + 20px) !important; }
+  .mouse .leg { transform-box: fill-box; transform-origin: 50% 0; }
+  .running .mouse .leg.l1, .running .mouse .leg.l3 { animation: legA .18s ease-in-out infinite alternate; }
+  .running .mouse .leg.l2, .running .mouse .leg.l4 { animation: legB .18s ease-in-out infinite alternate; }
+  .running .mouse { animation: scurry .18s ease-in-out infinite alternate; }
+  .buddy-mouse.running.face-right .mouse { animation: scurryR .18s ease-in-out infinite alternate; }
+  @keyframes legA { from { transform: rotate(-32deg); } to { transform: rotate(32deg); } }
+  @keyframes legB { from { transform: rotate(32deg); } to { transform: rotate(-32deg); } }
+  @keyframes scurryR { from { transform: scaleX(-1) translateY(0); } to { transform: scaleX(-1) translateY(-3px); } }
+  .runner.running .foot { animation: none; }
+  .buddy-card { position: fixed; z-index: 52; width: min(300px, calc(100vw - 32px)); background: var(--panel); border: 2px solid var(--overlap); border-radius: 14px; padding: 14px 16px; box-shadow: 0 10px 40px rgba(0,0,0,.5), 0 0 24px rgba(255,216,74,.25); transition: left .95s cubic-bezier(.45,0,.25,1), top .95s cubic-bezier(.45,0,.25,1), opacity .25s; }
+  .buddy-card[hidden] { display: none; }
+  .buddy-card.pop { animation: pop .35s ease-out; }
+  .buddy-step { margin: 0 0 4px; font-size: 12.5px; color: var(--overlap); font-weight: 600; }
+  .buddy-step:empty { display: none; }
+  .buddy-text { margin: 0 0 12px; font-size: 15px; line-height: 1.45; color: var(--text); }
+  .buddy-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  .buddy-btns .tbtn { padding: 8px 14px; font-size: 14px; }
+  @media (prefers-reduced-motion: reduce) { .buddy-mouse, .buddy-card { transition: none !important; } .buddy-mouse::before, .running .mouse, .running .mouse .leg { animation: none !important; } }
 
   /* hint */
   .tryit { margin: 0 0 12px; font-size: 13px; color: var(--overlap); display: flex; align-items: center; gap: 8px; }
@@ -465,6 +523,21 @@
     </div>
 
     <figure class="viewer" style="margin:0">
+      <div class="runner" id="runner" aria-hidden="true"><svg class="mouse" viewBox="0 0 64 44" aria-hidden="true">
+  <g class="legs" fill="#FF8FB1">
+    <rect class="leg l1" x="20" y="30" width="3.6" height="10" rx="1.8"/>
+    <rect class="leg l2" x="26" y="31" width="3.6" height="9" rx="1.8"/>
+    <rect class="leg l3" x="38" y="31" width="3.6" height="9" rx="1.8"/>
+    <rect class="leg l4" x="44" y="30" width="3.6" height="10" rx="1.8"/>
+  </g>
+  <path class="tail" d="M50 26c8 0 10-8 6-13" fill="none" stroke="#FF8FB1" stroke-width="2.4" stroke-linecap="round"/>
+  <ellipse cx="33" cy="24" rx="18" ry="11.5" fill="#FFFFFF"/>
+  <circle cx="16" cy="19" r="10" fill="#FFFFFF"/>
+  <circle cx="20" cy="8" r="7" fill="#FFFFFF"/><circle cx="20" cy="8" r="4.2" fill="#FF8FB1"/>
+  <circle class="eye" cx="11.5" cy="17" r="2" fill="#1A1400"/>
+  <circle cx="5.5" cy="21" r="2.4" fill="#FF5C8A"/>
+  <path d="M8 22l-6 -1M8 23.5l-6 2M9 25l-5 4" stroke="#B8A27A" stroke-width="0.9" stroke-linecap="round"/>
+</svg></div>
       <div class="viewer-grid">
         <div class="stage">
           <canvas id="stage" width="360" height="360" aria-label="Simulated microscope image" role="img"></canvas>
@@ -472,16 +545,7 @@
         </div>
         <div class="side">
           <div>
-            <div class="guide" id="hero-guide"><svg class="owl" viewBox="0 0 48 52" aria-hidden="true">
-              <path d="M10 14l4-10 6 7M38 14l-4-10-6 7" fill="#FF9F1C"/>
-              <ellipse cx="24" cy="29" rx="17" ry="18" fill="#FFC23D"/>
-              <ellipse cx="24" cy="35" rx="10.5" ry="10" fill="#FFF0C2"/>
-              <g class="eyes"><circle cx="16.5" cy="22" r="6.2" fill="#fff"/><circle cx="31.5" cy="22" r="6.2" fill="#fff"/>
-              <circle cx="17.5" cy="23" r="3.2" fill="#0C1220"/><circle cx="32.5" cy="23" r="3.2" fill="#0C1220"/>
-              <circle cx="18.6" cy="21.8" r="1.1" fill="#fff"/><circle cx="33.6" cy="21.8" r="1.1" fill="#fff"/></g>
-              <path d="M21.5 27h5l-2.5 4z" fill="#FF6B3D"/>
-              <path d="M18 47v3M22 47v3M26 47v3M30 47v3" stroke="#FF9F1C" stroke-width="1.6" stroke-linecap="round"/>
-            </svg><p class="bubble" id="hero-bubble">Click a view below or drag the slider!</p></div>
+            <div class="guide hero-guide" id="hero-guide"><p class="bubble" id="hero-bubble">Hi! Click Nuclei to start exploring this image.</p></div>
             <h3 id="view-label">What you're looking at</h3>
             <div class="views" role="group" aria-labelledby="view-label">
               <button data-view="dapi"><span class="sw dapi"></span>Nuclei (DAPI)</button>
@@ -495,6 +559,7 @@
           <div class="slider">
             <label for="thr">Signal threshold <output id="thr-out" for="thr">30</output></label>
             <input id="thr" type="range" min="10" max="120" value="30">
+            <p class="lock-note" id="lock-note"></p>
           </div>
           <div class="readout" aria-live="polite">
             <div><b id="pct">0%</b><span>of immune cell area contains amyloid-beta</span></div>
@@ -659,16 +724,21 @@
               <p id="tour-desc"></p>
             </div>
             <div class="tour-btns">
-              <div class="guide guide-sm" id="tour-guide"><svg class="owl" viewBox="0 0 48 52" aria-hidden="true">
-                <path d="M10 14l4-10 6 7M38 14l-4-10-6 7" fill="#FF9F1C"/>
-                <ellipse cx="24" cy="29" rx="17" ry="18" fill="#FFC23D"/>
-                <ellipse cx="24" cy="35" rx="10.5" ry="10" fill="#FFF0C2"/>
-                <g class="eyes"><circle cx="16.5" cy="22" r="6.2" fill="#fff"/><circle cx="31.5" cy="22" r="6.2" fill="#fff"/>
-                <circle cx="17.5" cy="23" r="3.2" fill="#0C1220"/><circle cx="32.5" cy="23" r="3.2" fill="#0C1220"/>
-                <circle cx="18.6" cy="21.8" r="1.1" fill="#fff"/><circle cx="33.6" cy="21.8" r="1.1" fill="#fff"/></g>
-                <path d="M21.5 27h5l-2.5 4z" fill="#FF6B3D"/>
-                <path d="M18 47v3M22 47v3M26 47v3M30 47v3" stroke="#FF9F1C" stroke-width="1.6" stroke-linecap="round"/>
-            </svg><p class="bubble">Click Next!</p></div>
+              <div class="guide guide-sm" id="tour-guide"><svg class="mouse" viewBox="0 0 64 44" aria-hidden="true">
+  <g class="legs" fill="#FF8FB1">
+    <rect class="leg l1" x="20" y="30" width="3.6" height="10" rx="1.8"/>
+    <rect class="leg l2" x="26" y="31" width="3.6" height="9" rx="1.8"/>
+    <rect class="leg l3" x="38" y="31" width="3.6" height="9" rx="1.8"/>
+    <rect class="leg l4" x="44" y="30" width="3.6" height="10" rx="1.8"/>
+  </g>
+  <path class="tail" d="M50 26c8 0 10-8 6-13" fill="none" stroke="#FF8FB1" stroke-width="2.4" stroke-linecap="round"/>
+  <ellipse cx="33" cy="24" rx="18" ry="11.5" fill="#FFFFFF"/>
+  <circle cx="16" cy="19" r="10" fill="#FFFFFF"/>
+  <circle cx="20" cy="8" r="7" fill="#FFFFFF"/><circle cx="20" cy="8" r="4.2" fill="#FF8FB1"/>
+  <circle class="eye" cx="11.5" cy="17" r="2" fill="#1A1400"/>
+  <circle cx="5.5" cy="21" r="2.4" fill="#FF5C8A"/>
+  <path d="M8 22l-6 -1M8 23.5l-6 2M9 25l-5 4" stroke="#B8A27A" stroke-width="0.9" stroke-linecap="round"/>
+</svg><p class="bubble">Click Next!</p></div>
               <button class="tbtn" id="tour-back" type="button">Back</button>
               <button class="tbtn primary pulse" id="tour-next" type="button">Next step</button>
             </div>
@@ -853,6 +923,31 @@ Processing: Sample_A_Field1_ch02.tif
   </div>
 </footer>
 
+<div class="buddy" id="buddy">
+  <div class="buddy-card" id="buddy-card" role="dialog" aria-live="polite" aria-label="Tour guide" hidden>
+    <p class="buddy-step" id="buddy-step"></p>
+    <p class="buddy-text" id="buddy-text"></p>
+    <div class="buddy-btns">
+      <button type="button" class="tbtn primary" id="buddy-go">Show me around</button>
+      <button type="button" class="tbtn" id="buddy-stop">No thanks</button>
+    </div>
+  </div>
+  <button type="button" class="buddy-mouse" id="buddy-mouse" aria-label="Open the tour guide"><svg class="mouse" viewBox="0 0 64 44" aria-hidden="true">
+  <g class="legs" fill="#FF8FB1">
+    <rect class="leg l1" x="20" y="30" width="3.6" height="10" rx="1.8"/>
+    <rect class="leg l2" x="26" y="31" width="3.6" height="9" rx="1.8"/>
+    <rect class="leg l3" x="38" y="31" width="3.6" height="9" rx="1.8"/>
+    <rect class="leg l4" x="44" y="30" width="3.6" height="10" rx="1.8"/>
+  </g>
+  <path class="tail" d="M50 26c8 0 10-8 6-13" fill="none" stroke="#FF8FB1" stroke-width="2.4" stroke-linecap="round"/>
+  <ellipse cx="33" cy="24" rx="18" ry="11.5" fill="#FFFFFF"/>
+  <circle cx="16" cy="19" r="10" fill="#FFFFFF"/>
+  <circle cx="20" cy="8" r="7" fill="#FFFFFF"/><circle cx="20" cy="8" r="4.2" fill="#FF8FB1"/>
+  <circle class="eye" cx="11.5" cy="17" r="2" fill="#1A1400"/>
+  <circle cx="5.5" cy="21" r="2.4" fill="#FF5C8A"/>
+  <path d="M8 22l-6 -1M8 23.5l-6 2M9 25l-5 4" stroke="#B8A27A" stroke-width="0.9" stroke-linecap="round"/>
+</svg></button>
+</div>
 <script>
 (function () {
   // ---- Real sample images ----
@@ -1022,10 +1117,53 @@ Processing: Sample_A_Field1_ch02.tif
   });
   document.querySelectorAll(".views button:not([aria-pressed])").forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
   thr.addEventListener("input", update);
-  var praised = false;
-  function praise() { if (praised) return; praised = true; var g = document.getElementById("hero-guide"); g.classList.add("happy"); document.getElementById("hero-bubble").textContent = "Nice! Try another one."; }
-  document.querySelectorAll(".views button").forEach(function (btn) { btn.addEventListener("click", praise); });
-  thr.addEventListener("input", praise);
+  // ---- mouse guide ----
+  var viewerEl = document.querySelector(".viewer"), runner = document.getElementById("runner");
+  var bubble = document.getElementById("hero-bubble"), sliderWrap = document.querySelector(".viewer .slider"), lockNote = document.getElementById("lock-note");
+  var btnBy = {}; document.querySelectorAll(".views button").forEach(function (b) { btnBy[b.dataset.view] = b; });
+  var MSG = {
+    dapi:    ["These blue dots are nuclei, one per cell. Next, try Amyloid-beta!", "abeta"],
+    abeta:   ["Green is the Alzheimer's protein. Next, try Immune cells!", "iba1"],
+    iba1:    ["Red shows microglia, the immune cells. Next, try All three!", "merge"],
+    merge:   ["All three channels together. Next, try Check map!", "map"],
+    map:     ["Yellow shows protein inside the immune cells. Now drag the slider!", "slider"],
+    outline: ["Each yellow outline is one counted cell. Now drag the slider!", "slider"]
+  };
+  var AFTER = {
+    map:     ["See how the result changes with the threshold? Now try Cells counted!", "outline"],
+    outline: ["The cell count changes too. Try Check map next!", "map"]
+  };
+  var current = "dapi", started = false;
+  function targetEl(name) { return name === "slider" ? sliderWrap : btnBy[name]; }
+  function place() {
+    var el = targetEl(current); if (!el) return;
+    var r = el.getBoundingClientRect(), v = viewerEl.getBoundingClientRect();
+    var x = r.right - v.left - 46, y = r.top - v.top - 20;
+    if (current === "slider") { x = r.right - v.left - 52; y = r.top - v.top - 22; }
+    runner.style.transform = "translate(" + Math.round(x) + "px," + Math.round(y) + "px)";
+  }
+  function point(name) {
+    document.querySelectorAll(".target-glow").forEach(function (e) { e.classList.remove("target-glow"); });
+    current = name; var el = targetEl(name); if (el) el.classList.add("target-glow");
+    runner.classList.add("running"); place();
+    clearTimeout(point.t); point.t = setTimeout(function () { runner.classList.remove("running"); }, 750);
+  }
+  function setLock() {
+    var live = view === "map" || view === "outline";
+    thr.disabled = !live;
+    sliderWrap.classList.toggle("locked", !live);
+    lockNote.textContent = live ? "The slider is active for this view." : "The slider works on Check map and Cells counted.";
+  }
+  function say(t) { bubble.textContent = t; bubble.classList.remove("pop"); void bubble.offsetWidth; bubble.classList.add("pop"); }
+  document.querySelectorAll(".views button").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var m = MSG[btn.dataset.view]; started = true; say(m[0]); point(m[1]); setLock();
+    });
+  });
+  thr.addEventListener("change", function () { var m = AFTER[view]; if (m) { say(m[0]); point(m[1]); } });
+  window.addEventListener("resize", place);
+  setLock();
+  requestAnimationFrame(function () { point("dapi"); });
 
   function refreshAll() {
     update();
@@ -1118,6 +1256,100 @@ Processing: Sample_A_Field1_ch02.tif
   document.getElementById("tour-next").addEventListener("click", function () { go(step === STEPS.length - 1 ? 0 : step + 1); });
   document.getElementById("tour-back").addEventListener("click", function () { go(step - 1); });
   document.getElementById("tour-thr").addEventListener("input", function (e) { tourT = +e.target.value; document.getElementById("tour-thr-out").textContent = tourT; tourRender(); });
+
+  // ---- page tour companion ----
+  (function () {
+    var m = document.getElementById("buddy-mouse"), card = document.getElementById("buddy-card");
+    var tx = document.getElementById("buddy-text"), stepEl = document.getElementById("buddy-step");
+    var go = document.getElementById("buddy-go"), stop = document.getElementById("buddy-stop");
+    var STOPS = [
+      { el: ".viewer .stage", text: "Start here: this is a real microscope image. Try the buttons next to it. My little helper there shows you where to click!" },
+      { el: "#problem", text: "The problem: hundreds of images, measured by hand, and different people get different answers." },
+      { el: "#why", text: "The science in three pictures. Watch the green clumps end up inside the red immune cell." },
+      { el: "#pipeline", text: "Your turn! Click Next step in the walkthrough to see the pipeline work on the real image." },
+      { el: "#outputs", text: "Every run gives a results table, check images, a visual report and a full log." },
+      { el: "#skills", text: "These are the skills and tools behind this project." },
+      { el: "#credits", text: "Thanks for visiting! The people behind the project are here, and you can request the code at the bottom." }
+    ];
+    var idx = -1, mx = 0, my = 0, mode = "corner";
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function vw() { return document.documentElement.clientWidth; }
+    function vh() { return window.innerHeight; }
+    function moveMouse(x, y) {
+      m.classList.toggle("face-right", x > mx + 4);
+      m.classList.add("running");
+      m.style.left = x + "px"; m.style.top = y + "px"; mx = x; my = y;
+      clearTimeout(moveMouse.t); moveMouse.t = setTimeout(function () { m.classList.remove("running"); m.classList.remove("face-right"); }, reduce ? 0 : 1000);
+    }
+    function placeCard() {
+      var w = card.offsetWidth || 300, h = card.offsetHeight || 140;
+      var x = mx + 72, y = my - 10;
+      if (mode === "tour" && idx > 0) { x = mx; y = my + 54; w = Math.min(w, 300); }
+      if (x + w > vw() - 12) x = mx - w - 12;
+      if (x < 12) x = 12;
+      if (y + h > vh() - 12) { y = (mode === "tour" && idx > 0) ? my - h - 12 : vh() - h - 12; }
+      if (y < 70) y = 70;
+      if (vw() < 700) { x = 16; y = vh() - h - 76; }
+      card.style.left = x + "px"; card.style.top = y + "px";
+    }
+    function show(text, step, goLabel, stopLabel) {
+      tx.textContent = text; stepEl.textContent = step || "";
+      go.textContent = goLabel; stop.textContent = stopLabel;
+      card.hidden = false; card.classList.remove("pop"); void card.offsetWidth; card.classList.add("pop");
+      placeCard();
+    }
+    function toCorner() {
+      mode = "corner"; idx = -1; card.hidden = true; m.classList.add("small");
+      moveMouse(vw() - 84, vh() - 70);
+    }
+    function corner() { return { x: vw() - 84, y: vh() - 70 }; }
+    function intro() {
+      mode = "intro"; m.classList.remove("small");
+      var c = corner(); moveMouse(c.x - 10, c.y - 10);
+      setTimeout(function () { show("Hi! I can walk you through this project in about a minute. Want a quick tour?", "", "Show me around", "No thanks"); }, reduce ? 0 : 500);
+    }
+    function goTo(i) {
+      idx = i; mode = "tour"; card.hidden = true; m.classList.remove("small");
+      var target = document.querySelector(STOPS[i].el); if (!target) return;
+      var sec = target.closest("section, header") || target;
+      var top = Math.max(0, Math.min(sec.getBoundingClientRect().top + window.pageYOffset - 70, document.documentElement.scrollHeight - vh()));
+      window.scrollTo({ top: top, behavior: reduce ? "auto" : "smooth" });
+      whenScrolled(top, function () {
+        var r = target.getBoundingClientRect(), hEl = sec.querySelector(".split > header"), hdr = ((hEl && hEl.lastElementChild) || target).getBoundingClientRect();
+        var x, y;
+        if (vw() < 700) { x = 16; y = vh() - 70; }
+        else if (i === 0) { x = r.left + 8; y = Math.min(r.bottom + 14, vh() - 120); }
+        else { x = hdr.left; y = Math.min(hdr.bottom + 24, vh() - 220); }
+        moveMouse(x, y);
+        setTimeout(function () {
+          var last = i === STOPS.length - 1;
+          show(STOPS[i].text, "Stop " + (i + 1) + " of " + STOPS.length, last ? "Finish" : "Next", "End tour");
+        }, reduce ? 0 : 950);
+      });
+    }
+    function whenScrolled(target, cb) {
+      var t0 = Date.now(), last = -1, same = 0;
+      (function tick() {
+        var y = window.pageYOffset;
+        same = (y === last) ? same + 1 : 0; last = y;
+        var arrived = Math.abs(y - target) < 2;
+        if ((arrived && same >= 2) || (Date.now() - t0 > 400 && same >= 8) || Date.now() - t0 > 2500) cb(); else requestAnimationFrame(tick);
+      })();
+    }
+    go.addEventListener("click", function () {
+      if (mode === "intro" || mode === "corner") goTo(0);
+      else if (idx < STOPS.length - 1) goTo(idx + 1);
+      else toCorner();
+    });
+    stop.addEventListener("click", toCorner);
+    m.addEventListener("click", function () {
+      if (mode === "corner") { intro(); show("Want me to show you around?", "", "Show me around", "Not now"); }
+    });
+    window.addEventListener("resize", function () { if (mode === "corner") toCorner(); else if (!card.hidden) placeCard(); });
+    // start: hidden off-screen, then pop in from the side
+    m.style.left = (vw() + 20) + "px"; m.style.top = (vh() - 80) + "px"; mx = vw() + 20; my = vh() - 80;
+    setTimeout(intro, reduce ? 0 : 1400);
+  })();
 
   refreshAll();   // simulated image first, so the page is never empty
 
