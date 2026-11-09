@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Amyloid-beta and Microglia Pipeline | Sushruthi Panakanti</title>
-<meta name="description" content="A batch image analysis pipeline that turns hundreds of microscope images into standardized, traceable measurements of how brain immune cells clear Alzheimer's protein.">
+<meta name="description" content="A batch image analysis pipeline that turns hundreds of microscope images into standardized, traceable measurements of amyloid-beta phagocytosis by microglia.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -536,7 +536,7 @@
       <li><a href="#pipeline">Pipeline</a></li>
       <li><a href="#outputs">Outputs</a></li>
       <li><a href="#skills">Skills</a></li>
-      <li><a href="mailto:spanakan@iu.edu?subject=Access%20request%3A%20amyloid-beta-microglia%20pipeline">Request code access</a></li>
+      <li><a href="#credits">Credits</a></li>
     </ul>
   </div>
 </nav>
@@ -544,12 +544,12 @@
 <header class="hero" id="top">
   <div class="wrap">
     <div>
-      <p class="kicker">Image analysis pipeline for <i>Alzheimer's drug research</i></p>
-      <h1>Measuring how brain immune cells clear Alzheimer's protein</h1>
-      <p class="lede">Researchers are testing whether a potential Alzheimer's drug helps the brain's immune cells clear a harmful protein. This pipeline measures hundreds of microscope images automatically and the same way every time, so the answer is fast, reliable and repeatable.</p>
+      <p class="kicker">Image analysis pipeline for <i>Alzheimer's disease research</i></p>
+      <h1>Measuring amyloid-beta phagocytosis by microglia</h1>
+      <p class="lede">Researchers are testing whether a candidate compound increases phagocytosis of amyloid-beta by microglia. This pipeline automates the lab's ImageJ workflow, measuring hundreds of microscope images the same way every time, so results are fast, consistent and repeatable.</p>
       <div class="actions">
         <a class="btn primary" href="#pipeline">See how it works</a>
-        <a class="btn" href="mailto:spanakan@iu.edu?subject=Access%20request%3A%20amyloid-beta-microglia%20pipeline">Request code access</a>
+        <a class="btn" href="#outputs">See the outputs</a>
       </div>
     </div>
 
@@ -581,7 +581,7 @@
             <div class="views" role="group" aria-labelledby="view-label">
               <button data-view="dapi"><span class="sw dapi"></span>Nuclei (DAPI)</button>
               <button data-view="abeta"><span class="sw abeta"></span>Amyloid-beta</button>
-              <button data-view="iba1"><span class="sw iba1"></span>Immune cells (Iba1)</button>
+              <button data-view="iba1"><span class="sw iba1"></span>Microglia (Iba1)</button>
               <button data-view="merge" aria-pressed="true"><span class="sw merge"></span>All three</button>
               <button data-view="map"><span class="sw map"></span>Check map</button>
               <button data-view="outline"><span class="sw ring"></span>Cells counted</button>
@@ -593,7 +593,7 @@
             <p class="lock-note" id="lock-note"></p>
           </div>
           <div class="readout" aria-live="polite">
-            <div><b id="pct">0%</b><span>of immune cell area contains amyloid-beta</span></div>
+            <div><b id="pct">0%</b><span>of microglia area contains amyloid-beta</span></div>
             <div><b id="count">0</b><span>nuclei counted</span></div>
           </div>
         </div>
@@ -656,7 +656,7 @@
         <ol class="story">
           <li>
             <svg viewBox="0 0 220 170" role="img" aria-labelledby="st1">
-              <title id="st1">An immune cell surrounded by four clumps of amyloid-beta protein</title>
+              <title id="st1">A microglial cell surrounded by four clumps of amyloid-beta</title>
               <use href="#cell" x="110" y="85"/>
               <g class="clump"><circle cx="32" cy="40" r="9"/><circle cx="40" cy="34" r="7"/><circle cx="38" cy="46" r="6"/></g>
               <g class="clump"><circle cx="190" cy="36" r="7"/><circle cx="198" cy="42" r="5"/></g>
@@ -664,12 +664,12 @@
               <g class="clump"><circle cx="30" cy="138" r="7"/></g>
               <text class="tag" x="22" y="18">A</text><text class="tag" x="204" y="20">B</text>
             </svg>
-            <h3>The protein builds up</h3>
-            <p>In Alzheimer's, amyloid-beta (green) forms clumps around the brain's immune cells (red).</p>
+            <h3>Amyloid-beta builds up</h3>
+            <p>In Alzheimer's, amyloid-beta (green) forms clumps around microglia (red).</p>
           </li>
           <li>
             <svg viewBox="0 0 220 170" role="img" aria-labelledby="st2">
-              <title id="st2">The same immune cell has swallowed clumps A and B, which now sit inside the cell. Dashed outlines show where they were.</title>
+              <title id="st2">The same microglial cell has engulfed clumps A and B by phagocytosis. Dashed outlines show where they were.</title>
               <g class="ghost"><circle cx="32" cy="40" r="9"/><circle cx="40" cy="34" r="7"/><circle cx="38" cy="46" r="6"/></g>
               <g class="ghost"><circle cx="190" cy="36" r="7"/><circle cx="198" cy="42" r="5"/></g>
               <use href="#cell" x="110" y="85"/>
@@ -682,12 +682,12 @@
               <g class="clump"><circle cx="30" cy="138" r="7"/></g>
               <text class="tag" x="22" y="18">A</text><text class="tag" x="204" y="20">B</text>
             </svg>
-            <h3>Immune cells take it in</h3>
-            <p>The cell swallows clumps A and B. The same green clumps now sit inside the red cell.</p>
+            <h3>Microglia engulf it</h3>
+            <p>By phagocytosis, the cell engulfs clumps A and B. The same green clumps now sit within the red cell.</p>
           </li>
           <li>
             <svg viewBox="0 0 220 170" role="img" aria-labelledby="st3">
-              <title id="st3">Two cells start with the same four clumps nearby. Untreated takes in one. With the drug, it takes in all four; dashed outlines show where they were.</title>
+              <title id="st3">Two cells start with the same four clumps nearby. Untreated engulfs one. With the compound, it engulfs all four; dashed outlines show where they were.</title>
               <use href="#cell-sm" x="56" y="76"/>
               <g class="clump in"><circle cx="50" cy="84" r="5.5"/><circle cx="56" cy="80" r="4"/></g>
               <g class="clump"><circle cx="14" cy="24" r="6"/><circle cx="20" cy="20" r="4"/></g>
@@ -700,13 +700,13 @@
               <g class="clump in"><circle cx="152" cy="84" r="5"/><circle cx="157" cy="80" r="3.5"/><circle cx="168" cy="90" r="5"/><circle cx="175" cy="84" r="3.5"/><circle cx="160" cy="95" r="4"/><circle cx="173" cy="72" r="4"/></g>
               <line class="divider" x1="110" y1="12" x2="110" y2="140"/>
               <text class="lbl" x="56" y="158">Untreated</text>
-              <text class="lbl" x="164" y="158">With drug</text>
+              <text class="lbl" x="164" y="158">With compound</text>
             </svg>
-            <h3>A drug could boost this</h3>
-            <p>Same four clumps. With the drug, more of them end up inside the cell.</p>
+            <h3>A compound could increase this</h3>
+            <p>Same four clumps. With the compound, more of them are engulfed.</p>
           </li>
         </ol>
-        <p class="takeaway">The pipeline measures exactly this: <strong>how much of each immune cell's area holds the protein</strong>, across every image.</p>
+        <p class="takeaway">The pipeline measures exactly this: <strong>how much of the microglia area holds amyloid-beta</strong>, across every image.</p>
 
         <svg width="0" height="0" style="position:absolute" aria-hidden="true">
           <defs>
@@ -733,8 +733,8 @@
 
         <div class="stains">
           <div><h3><span class="sw dapi"></span>Nuclei</h3><p>Blue stain (DAPI). Used to count cells.</p></div>
-          <div><h3><span class="sw abeta"></span>Amyloid-beta</h3><p>Green label on the protein.</p></div>
-          <div><h3><span class="sw iba1"></span>Immune cells</h3><p>Red label (Iba1) on microglia.</p></div>
+          <div><h3><span class="sw abeta"></span>Amyloid-beta</h3><p>Green fluorescent label on amyloid-beta.</p></div>
+          <div><h3><span class="sw iba1"></span>Microglia</h3><p>Red label (Iba1) on microglia.</p></div>
         </div>
       </div>
     </div>
@@ -834,9 +834,9 @@
             <div>
               <p>Every pixel colored by what it holds.</p>
               <div class="legend">
-                <span><i style="background:#FF0000"></i>Immune cell only</span>
-                <span><i style="background:#00FF00"></i>Protein outside the cells</span>
-                <span><i style="background:#FFFF00"></i>Protein inside the cells</span>
+                <span><i style="background:#FF0000"></i>Microglia only</span>
+                <span><i style="background:#00FF00"></i>Amyloid-beta outside microglia</span>
+                <span><i style="background:#FFFF00"></i>Amyloid-beta within microglia</span>
               </div>
             </div>
           </div>
@@ -948,7 +948,7 @@ Processing: Sample_A_Field1_ch02.tif
           <span>spanakan@iu.edu</span></a></li>
       </ul>
       <ul class="project-links">
-        <li>Pipeline code and documentation are private until publication. <a href="mailto:spanakan@iu.edu?subject=Access%20request%3A%20amyloid-beta-microglia%20pipeline">Request access</a></li>
+        <li>Pipeline code and documentation are private until publication.</li>
       </ul>
     </div>
   </div>
@@ -1172,10 +1172,10 @@ Processing: Sample_A_Field1_ch02.tif
   var btnBy = {}; document.querySelectorAll(".views button").forEach(function (b) { btnBy[b.dataset.view] = b; });
   var MSG = {
     dapi:    ["These blue dots are nuclei, one per cell. Next, try Amyloid-beta!", "abeta"],
-    abeta:   ["Green is the Alzheimer's protein. Next, try Immune cells!", "iba1"],
-    iba1:    ["Red shows microglia, the immune cells. Next, try All three!", "merge"],
+    abeta:   ["Green is amyloid-beta. Next, try Microglia!", "iba1"],
+    iba1:    ["Red shows microglia (Iba1). Next, try All three!", "merge"],
     merge:   ["All three channels together. Next, try Check map!", "map"],
-    map:     ["Yellow shows protein inside the immune cells. Now drag the slider!", "slider"],
+    map:     ["Yellow shows amyloid-beta within microglia. Now drag the slider!", "slider"],
     outline: ["Each yellow outline is one counted cell. Now drag the slider!", "slider"]
   };
   var AFTER = {
@@ -1233,21 +1233,21 @@ Processing: Sample_A_Field1_ch02.tif
     { title: "Count the cells", view: "outline", chip: "Cells counted",
       desc: "Each nucleus brighter than the threshold is outlined in yellow and counted. One outline is one cell.",
       stat: function (t) { return { v: components(t, 20).count, l: "cells counted" }; } },
-    { title: "Immune cells", view: "iba1", chip: "Iba1 channel",
-      desc: "The red stain marks microglia, the brain's immune cells.",
+    { title: "Microglia", view: "iba1", chip: "Iba1 channel",
+      desc: "The red Iba1 stain marks microglia.",
       stat: function () { return { v: "", l: "" }; } },
     { title: "Amyloid-beta", view: "abeta", chip: "Amyloid-beta channel",
-      desc: "The green label marks the Alzheimer's protein the cells take in.",
+      desc: "The green label marks the amyloid-beta that microglia engulf.",
       stat: function () { return { v: "", l: "" }; } },
-    { title: "Find the immune cell area", view: "iba1mask", chip: "Immune cell area",
-      desc: "Every red pixel brighter than the threshold becomes part of the immune cell area.",
-      stat: function (t) { return { v: iba1Area(t).toFixed(1) + "%", l: "of the image is immune cell area" }; } },
-    { title: "Find the protein inside", view: "map", chip: "Check map",
+    { title: "Find the microglia area", view: "iba1mask", chip: "Microglia area",
+      desc: "Every red pixel brighter than the threshold becomes part of the microglia area.",
+      stat: function (t) { return { v: iba1Area(t).toFixed(1) + "%", l: "of the image is microglia area" }; } },
+    { title: "Find amyloid-beta within microglia", view: "map", chip: "Check map",
       desc: "The goal is to measure the green that falls inside the red area. The pipeline calculates the area of green within the red.",
-      stat: function (t) { return { v: pct(t).toFixed(1) + "%", l: "of immune cell area holds amyloid-beta" }; } },
+      stat: function (t) { return { v: pct(t).toFixed(1) + "%", l: "of microglia area holds amyloid-beta" }; } },
     { title: "Choose the threshold", view: "map", chip: "Drag the slider", slider: true, chart: true,
       desc: "Drag the slider. Too low and background noise counts as signal. Too high and real signal is lost.",
-      stat: function (t) { return { v: pct(t).toFixed(1) + "%", l: "of immune cell area holds amyloid-beta" }; } },
+      stat: function (t) { return { v: pct(t).toFixed(1) + "%", l: "of microglia area holds amyloid-beta" }; } },
     { title: "Lock it for every image", view: "map", chip: "Threshold fixed at 30", chart: true, fixed: true,
       desc: "One threshold, 30, is fixed and applied to every image in every run. That is what makes results comparable.",
       stat: function () { return { v: pct(30).toFixed(1) + "%", l: "uptake at the fixed threshold of 30" }; } }
@@ -1314,11 +1314,11 @@ Processing: Sample_A_Field1_ch02.tif
     var STOPS = [
       { el: ".viewer .stage", helper: "hero", text: "Start here: this is a real microscope image. Try the buttons next to it. My little helper there shows you where to click!" },
       { el: "#problem", text: "The problem: hundreds of images, measured by hand, and different people get different answers." },
-      { el: "#why", text: "The science in three pictures. Watch the green clumps end up inside the red immune cell." },
+      { el: "#why", text: "The science in three pictures. Watch the microglia engulf the green amyloid-beta." },
       { el: "#pipeline", helper: "walk", text: "Your turn! Click Next step in the walkthrough to see the pipeline work on the real image." },
       { el: "#outputs", text: "Every run gives a results table, check images, a visual report and a full log." },
       { el: "#skills", text: "These are the skills and tools behind this project." },
-      { el: "#credits", text: "Thanks for visiting! The people behind the project are here, and you can request the code at the bottom." }
+      { el: "#credits", text: "Thanks for visiting! The people behind the project are here." }
     ];
     var idx = -1, mx = 0, my = 0, mode = "corner";
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
