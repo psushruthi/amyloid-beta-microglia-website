@@ -1,16 +1,16 @@
-# Measuring how brain immune cells clear Alzheimer's protein
+# Measuring amyloid-beta phagocytosis by microglia
 
 **Live project website:** https://psushruthi.github.io/amyloid-beta-microglia-website/
 
-This repository holds the public project website for an automated image analysis pipeline built for Alzheimer's disease drug research.
+This repository holds the public project website for an automated image analysis pipeline built for Alzheimer's disease research.
 
 ## About the project
 
-Researchers are testing whether a potential Alzheimer's drug helps the brain's immune cells (microglia) clear a harmful protein (amyloid-beta). Answering that question means measuring hundreds of microscope images. Doing that manually is slow, and results can vary between people and sessions.
+Researchers are testing whether a candidate compound increases phagocytosis of amyloid-beta by microglia. Answering that question means measuring hundreds of microscope images. Doing that manually is slow, and results can vary between people and sessions.
 
-The pipeline solves this by measuring every image the same way, automatically. For each image it reports:
+The pipeline automates the lab's ImageJ workflow, so every image is measured the same way, automatically. For each image it reports:
 
-- **Uptake:** the percent of immune cell area that contains the protein
+- **Uptake:** the percent of microglia (Iba1) area that contains amyloid-beta
 - **Cell count:** the number of cell nuclei in the image
 - **Check images:** a picture for every number, so results can be reviewed by eye
 - **Traceability:** a results table with the settings saved in every row, a run log and a visual report
@@ -28,7 +28,7 @@ Anyone on the team can run it without writing code.
 The pipeline code and full documentation are kept in a separate repository:
 [psushruthi/amyloid-beta-microglia](https://github.com/psushruthi/amyloid-beta-microglia)
 
-That repository is **private** because the work has not been published yet. To request access, email spanakan@iu.edu.
+That repository is **private** because the work has not been published yet.
 
 ## What's in this repository
 
